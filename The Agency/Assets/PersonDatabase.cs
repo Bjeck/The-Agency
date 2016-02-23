@@ -45,10 +45,20 @@ public class PersonDatabase : MonoBehaviour {
 		bImg.color = Color.white;
 
 		img.sprite = p.img;
-		string put = "Name: "+p.pName+"\nID: "+p.ID+"\nJob: "+p.job;
+		string put = "Name: "+p.pName+"\nID: "+p.ID+"\nJob: "+p.job+"\nEducation: "+p.education+"\nSSN: "+p.socialsecurityNr+"\nHobbies: "+p.hobbies;
+
+
+		//recent transactions
+		put += "\n\nRecent Credit Card Transactions: ";
+		if(p.recentCreditCardTransactions.Count > 0){
+			foreach(string s in p.recentCreditCardTransactions){
+				put += "\n"+s;
+			}
+		}
+
 
 		//relations
-		put += "\nRelations: ";
+		put += "\n\nRelations: ";
 		if(p.relations.Count > 0){
 			foreach(Person r in p.relations){
 				put += "\n"+r.pName;

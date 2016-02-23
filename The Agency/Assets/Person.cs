@@ -9,12 +9,11 @@ public class Person : MonoBehaviour {
 	public string job;
 	public List<Person> relations = new List<Person>();
 	public Sprite img;
+	public string hobbies;
+	public List<string> recentCreditCardTransactions = new List<string>();
+	public string education;
+	public string socialsecurityNr;
 
-
-	//hobbies
-	//recent credit card transactions!!
-	//education
-	//social security number??
 	//credit card??
 	//phone number??
 
