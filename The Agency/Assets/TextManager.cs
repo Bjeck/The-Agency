@@ -11,6 +11,8 @@ public class TextManager : MonoBehaviour {
 
 	public string masterString;
 	public string toAdd;
+	public bool isRolling = false;
+	public float timeTilDone = 0;
 
 	public float del = 0.1f;
 
@@ -36,12 +38,21 @@ public class TextManager : MonoBehaviour {
 
 
 	public void AddToText(string s, bool addspace){
-		if(addspace){
-			masterString += "\n";
+		if(isRolling){
+			if(addspace){
+				toAdd += "\n";
+			}
+			
+			toAdd += s;
 		}
-
-		toAdd = s;
-		StartCoroutine(RollText());
+		else{
+			if(addspace){
+				toAdd = "\n";
+			}
+			
+			toAdd += s;
+			StartCoroutine(RollText());
+		}
 	}
 
 
@@ -50,17 +61,19 @@ public class TextManager : MonoBehaviour {
 
 	public IEnumerator RollText(){
 		int i = 0;
+		isRolling = true;
 		while (i< toAdd.Length) {
-
 
 			masterString += toAdd[i];
 			txt.text = masterString;
 			i++;
 			scrb.value = 0;
+			timeTilDone = ((toAdd.Length-i)*del);
 			yield return new WaitForSeconds(del);
 
 		}
-
+		isRolling = false;
+		toAdd = "";
 	}
 
 

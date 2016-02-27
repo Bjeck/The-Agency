@@ -41,6 +41,7 @@ public class Story : MonoBehaviour {
 
 	public TextManager txtMan;
 	public RoomManager roomM;
+	public Story_CSV_Parser csvP;
 	public int tick = 0;
 	public Dictionary<string,Event> events = new Dictionary<string, Event>();
 
@@ -51,18 +52,19 @@ public class Story : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//TEST
-		TextEvent uh = new TextEvent("hello",2,"this is a text to tell you hello");
-		events.Add(uh.name,uh);
+		//TextEvent uh = new TextEvent("hello",2,"this is a text to tell you hello");
+		//events.Add(uh.name,uh);
 
-		AudioEvent sink = new AudioEvent("sink",4,"BathroomSink");
-		events.Add(sink.name,sink);
+		//AudioEvent sink = new AudioEvent("sink",4,"BathroomSink");
+		//events.Add(sink.name,sink);
 		//print ( uh.time);
 
 	//	
 		//TEST OVER
 
-
-
+		foreach(Event e in csvP.eventsParsed){
+			events.Add(e.name,e);
+		}
 
 
 		StartCoroutine(Tick());
