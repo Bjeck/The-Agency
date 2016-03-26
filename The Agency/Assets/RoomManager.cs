@@ -14,6 +14,8 @@ public class RoomManager : MonoBehaviour {
 	//public Dictionary<string,AudioMixerGroup> roommixers = new Dictionary<string, AudioMixer>();
 	
 	public AudioMixer roomMixer;
+	public string roomIAmIn;
+	public TextManager txtM;
 
 	public List<GameObject> objectLists = new List<GameObject>();
 	public Dictionary<string, AudioObject> roomAudio = new Dictionary<string,AudioObject>();
@@ -29,23 +31,19 @@ public class RoomManager : MonoBehaviour {
 
 		foreach(GameObject g in objectLists){
 			foreach(Transform c in g.transform){
-				print (c.gameObject.name);
 				roomAudio.Add(c.gameObject.name,c.gameObject.GetComponent<AudioObject>());
 				foreach(Transform cc in c){
-					print (cc.gameObject.name);
 					roomAudio.Add(cc.gameObject.name,cc.gameObject.GetComponent<AudioObject>());
 				}
 			}
 		}
 
+		//ChangeRoom("Living Room");
+
 		//foreach(AudioObject g in audioObjects){
 			//roomAudio.Add(g.gameObject.name,g.GetComponent<AudioObject>());
 		//}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
 	}
 
 	//Takes care of changing sound mixing when changing rooms. SHOULD ALSO SEND TO room switching for text. Eventually.
@@ -53,15 +51,29 @@ public class RoomManager : MonoBehaviour {
 		buttons.Find (x=>x==b).interactable = false;
 		foreach(Button bu in buttons.FindAll(x=>x!=b)){
 			bu.interactable = true;
-
 			roomMixer.SetFloat(bu.GetComponentInChildren<Text>().text,600f);
 		}
 
-		Camera.main.transform.position = rooms[buttons.Find (x=>x==b).GetComponentInChildren<Text>().text].position;
-		Camera.main.transform.rotation = rooms[buttons.Find (x=>x==b).GetComponentInChildren<Text>().text].rotation;
+		roomIAmIn = buttons.Find (x=>x==b).GetComponentInChildren<Text>().text;
 
-		//AudioMixerGroup currMix = roommixers[buttons.Find (x=>x==b).GetComponentInChildren<Text>().text];
+		Camera.main.transform.position = rooms[roomIAmIn].position;
+		Camera.main.transform.rotation = rooms[roomIAmIn].rotation;
+
 		roomMixer.SetFloat(buttons.Find (x=>x==b).GetComponentInChildren<Text>().text,22000);
+		
+		txtM.AddSpace();
+
+	}
+
+
+	public void ChangeRoom(string room){
+		print (room);
+		print (buttons[0].GetComponentInChildren<Text>().text);
+		print (buttons[1].GetComponentInChildren<Text>().text);
+		print (buttons[2].GetComponentInChildren<Text>().text);
+		print (buttons[3].GetComponentInChildren<Text>().text);
+
+		ChangeRoom(buttons.Find(x=>x.GetComponentInChildren<Text>().text==room));
 	}
 
 

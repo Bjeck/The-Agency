@@ -9,27 +9,30 @@ public enum EventType {Text, Audio, StateChange}
 
 public class Event {
 	public string name;
+	public string room; //L, K, B, T
 	public EventType type;
 	public int time;
 }
 
 public class TextEvent : Event {
 	public string text;
-	public TextEvent(string n, int t, string te){
+	public TextEvent(string n, int t, string te, string r){
 		type = EventType.Text;
 		name = n;
 		time = t;
 		text = te;
+		room = r;
 	}
 }
 
 public class AudioEvent : Event {	
 	public string sound;
-	public AudioEvent(string n, int t, string au){
+	public AudioEvent(string n, int t, string au, string r){
 		type = EventType.Audio;
 		name = n;
 		time = t;
 		sound = au;
+		room = r;
 	}	
 }
 
@@ -48,6 +51,8 @@ public class Story : MonoBehaviour {
 	public AudioClip clip;
 	public AudioSource srrc;
 
+	public GameManager gm;
+
 
 	// Use this for initialization
 	void Start () {
@@ -58,7 +63,13 @@ public class Story : MonoBehaviour {
 		}
 
 
+		//StartCoroutine(Tick());
+	}
+
+
+	public void StartTick(){
 		StartCoroutine(Tick());
+		//roomM.ChangeRoom("Living Room");
 	}
 
 	//THE BIG TICK
@@ -80,18 +91,34 @@ public class Story : MonoBehaviour {
 			}
 
 
+
 			yield return new WaitForSeconds(1);
 			tick++;
+			if(tick == 6){
+				StartCoroutine(WaitForText());
+				break;
+			}
 		}
 	}
 
+	public IEnumerator WaitForText(){
+
+		while(txtMan.isRollingLiving || txtMan.isRollingKitchen || txtMan.isRollingBedroom || txtMan.isRollingBathroom){
+			yield return new WaitForSeconds(0.2f);
+		}
+
+		gm.ChangeState(GameState.Choice);
+		yield return new WaitForEndOfFrame();
+
+	}
+
+
 
 	public void DoTextEvent(TextEvent e){
-		txtMan.AddToText(e.text, true);
+		txtMan.AddToText(e, true);
 	}
 
 	public void DoAudioEvent(AudioEvent e){
-		print ("PLAYING: "+e.sound);
 		roomM.PlaySoundInRoom(e.sound);
 
 	}

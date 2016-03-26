@@ -57,18 +57,36 @@ public class Story_CSV_Parser : MonoBehaviour {
 					//	print (s);
 					//}
 
+					Event ev = null;
 					if(e[0] == "TEXT"){
 						//CREATE TEXT EVENT
-						TextEvent ev = new TextEvent(e[1],int.Parse(e[2]),e[3]);
-						eventsParsed.Add (ev);
+						ev = new TextEvent(e[1],int.Parse(e[2]),e[3],e[4]);
 					}
 					else if(e[0] == "AUDIO"){
-						AudioEvent ev = new AudioEvent(e[1],int.Parse(e[2]),e[3]);
-						eventsParsed.Add(ev);
-							
+						ev = new AudioEvent(e[1],int.Parse(e[2]),e[3],e[4]);
 					}
 
-					//print ("EVENT PARSED: "+eventsParsed[lineCounter].name+" "+eventsParsed[lineCounter].time+" ");
+					if(ev != null){
+
+						switch(e[4]){
+						case "L":
+							ev.room = "Living Room";
+							break;
+						case "K":
+							ev.room = "Kitchen";
+							break;
+						case "B":
+							ev.room = "Bedroom";
+							break;
+						case "T":
+							ev.room = "Bathroom";
+							break;
+						}
+
+						eventsParsed.Add(ev);
+					}
+
+					//print ("EVENT PARSED: "+eventsParsed[lineCounter].name+" "+eventsParsed[lineCounter].time+" "+eventsParsed[lineCounter].room);
 					lineCounter++;
 				}
 				if(firstTime){
