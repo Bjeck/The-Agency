@@ -51,17 +51,8 @@ public class Story : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//TEST
-		//TextEvent uh = new TextEvent("hello",2,"this is a text to tell you hello");
-		//events.Add(uh.name,uh);
 
-		//AudioEvent sink = new AudioEvent("sink",4,"BathroomSink");
-		//events.Add(sink.name,sink);
-		//print ( uh.time);
-
-	//	
-		//TEST OVER
-
+		//Getting text from parser.
 		foreach(Event e in csvP.eventsParsed){
 			events.Add(e.name,e);
 		}
@@ -70,12 +61,14 @@ public class Story : MonoBehaviour {
 		StartCoroutine(Tick());
 	}
 
-
+	//THE BIG TICK
 	public IEnumerator Tick(){
 		while(true){
 
 			List<Event> eventsToTrigger = events.Values.ToList().FindAll(x=>x.time==tick);
 			foreach(Event e in eventsToTrigger){
+				print ("PLAYING EVENT: "+e.name);
+
 				switch(e.type){
 				case EventType.Text:    
 					DoTextEvent(e as TextEvent);
@@ -98,7 +91,9 @@ public class Story : MonoBehaviour {
 	}
 
 	public void DoAudioEvent(AudioEvent e){
-		roomM.roomAudio[e.sound].Play();
+		print ("PLAYING: "+e.sound);
+		roomM.PlaySoundInRoom(e.sound);
+
 	}
 
 

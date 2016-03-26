@@ -41,6 +41,7 @@ public class Story_CSV_Parser : MonoBehaviour {
 		using (theReader)
 		{
 			// While there's lines left in the text file, do this:
+			int lineCounter = 0;
 			while(line != null){
 				instances.Clear();
 				e.Clear();
@@ -62,36 +63,13 @@ public class Story_CSV_Parser : MonoBehaviour {
 						eventsParsed.Add (ev);
 					}
 					else if(e[0] == "AUDIO"){
-							//CREATE AUDIO EVENT
+						AudioEvent ev = new AudioEvent(e[1],int.Parse(e[2]),e[3]);
+						eventsParsed.Add(ev);
 							
 					}
 
-					print ("EVENT PARSED: "+eventsParsed[0].name+" "+eventsParsed[0].time);
-
-					/*if(elements.Count > 3){ //arbitrary number
-						DialogueInst momIntroGreet = new DialogueInst (); //need to figure out what to do with the class name.... shit. Back to lists? xD That would work.
-						momIntroGreet.id = int.Parse(elements[0]);
-						momIntroGreet.response = elements[1];
-						momIntroGreet.thoughts = elements[2];
-						momIntroGreet.thoughtsDelay = float.Parse(elements[3]);
-						momIntroGreet.optionDelay = float.Parse(elements[4]);
-						if(elements[6] != "NA"){	momIntroGreet.options.Add (elements[6]);	momIntroGreet.ResponseNrs.Add (int.Parse(elements[10]));	}
-						if(elements[7] != "NA"){	momIntroGreet.options.Add (elements[7]);	momIntroGreet.ResponseNrs.Add (int.Parse(elements[11]));	}
-						if(elements[8] != "NA"){	momIntroGreet.options.Add (elements[8]);	momIntroGreet.ResponseNrs.Add (int.Parse(elements[12]));	}
-						if(elements[9] != "NA"){	momIntroGreet.options.Add (elements[9]);	momIntroGreet.ResponseNrs.Add (int.Parse(elements[13]));	}
-						//Next Trigger
-						if(elements[5] != "NNT"){
-							string[] parseNT = elements[5].Split('/');
-							if(parseNT[1] == "D"){
-								momIntroGreet.NextTrigger (parseNT[0],true);
-							}
-							else{
-								momIntroGreet.NextTrigger (parseNT[0],false);
-							}
-						}
-						
-						print ("TEST OUTPUT "+momIntroGreet.response+" "+momIntroGreet.thoughts+" "+momIntroGreet.thoughtsDelay);
-					}*/
+					//print ("EVENT PARSED: "+eventsParsed[lineCounter].name+" "+eventsParsed[lineCounter].time+" ");
+					lineCounter++;
 				}
 				if(firstTime){
 					firstTime = false;
