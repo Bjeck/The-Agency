@@ -20,12 +20,14 @@ public class Story_CSV_Parser : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		print("WHAT");
 		Load (textfileName);
 	}
 	
 
 	private bool Load(string fileName)
 	{
+		print("LOADING");
 		// Handle any problems that might arise when reading the text
 		
 		string line;
@@ -49,15 +51,15 @@ public class Story_CSV_Parser : MonoBehaviour {
 				line = theReader.ReadLine();
 				
 				if(line != null && !firstTime && line.Substring(0,4) != "SKIP"){
-					
 				//	print ("LINE: "+line);
-					e = (line.Split('§').ToList());
+					e = (line.Split('?').ToList()); //U+03B1 THAT SUCKS
 
 					//foreach(string s in e){
 					//	print (s);
 					//}
 
 					Event ev = null;
+					print(e[0]);
 					if(e[0] == "TEXT"){
 						//CREATE TEXT EVENT
 						ev = new TextEvent(e[1],int.Parse(e[2]),e[3],e[4]);
@@ -65,6 +67,8 @@ public class Story_CSV_Parser : MonoBehaviour {
 					else if(e[0] == "AUDIO"){
 						ev = new AudioEvent(e[1],int.Parse(e[2]),e[3],e[4]);
 					}
+
+					print("parsed "+ev.name);
 
 					if(ev != null){
 
@@ -84,9 +88,10 @@ public class Story_CSV_Parser : MonoBehaviour {
 						}
 
 						eventsParsed.Add(ev);
+						print("parsed room "+ev.name);
 					}
 
-					//print ("EVENT PARSED: "+eventsParsed[lineCounter].name+" "+eventsParsed[lineCounter].time+" "+eventsParsed[lineCounter].room);
+					print ("EVENT PARSED: "+eventsParsed[lineCounter].name+" "+eventsParsed[lineCounter].time+" "+eventsParsed[lineCounter].room);
 					lineCounter++;
 				}
 				if(firstTime){

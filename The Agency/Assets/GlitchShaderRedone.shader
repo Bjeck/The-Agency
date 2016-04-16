@@ -10,6 +10,7 @@ Properties
 	_ScreenWidth ("ScreenWidthLeft", Range(0,2000)) = 0
 	_ScreenWidth ("ScreenWidthRight", Range(0,2000)) = 0
 }
+
 SubShader
 {
 	// No culling or depth
@@ -38,6 +39,9 @@ SubShader
 		float displace;
 		float scale;
 
+		uniform int _PoisitionsLength;
+		uniform float3 _Positions [100];
+		uniform float2 _Properties [100];
 
 	//	struct appdata
 	//	{

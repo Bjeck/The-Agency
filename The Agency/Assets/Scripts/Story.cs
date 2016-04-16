@@ -61,6 +61,8 @@ public class Story : MonoBehaviour {
 		foreach(Event e in csvP.eventsParsed){
 			events.Add(e.name,e);
 		}
+		
+		print(events.Count);
 
 
 		//StartCoroutine(Tick());
@@ -94,10 +96,13 @@ public class Story : MonoBehaviour {
 
 			yield return new WaitForSeconds(1);
 			tick++;
-			if(tick == 6){
-				StartCoroutine(WaitForText());
-				break;
-			}
+
+			//CREATE SYSTEM FOR STATE CHANGING
+
+			//if(tick == 6){
+			//	StartCoroutine(WaitForText());
+			//	break;
+			//}
 		}
 	}
 

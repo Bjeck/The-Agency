@@ -35,6 +35,8 @@ public class GlitchEffectRedone : MonoBehaviour {
 	Material curMat;
 	public Shader shader;
 
+	public Camera cam;
+
 	Material material
 	{
 		get
@@ -54,11 +56,11 @@ public class GlitchEffectRedone : MonoBehaviour {
 		intensity = Mathf.Clamp(intensity,0,intenClamp);
 		scaleIntensity = Mathf.Clamp(intensity,1,intenClamp);
 
-		if(Input.GetMouseButton(0)){
-			oPos = Input.mousePosition;
-			//Vector3 pos = Camera.main.WorldToScreenPoint(bla.position);
+		//if(Input.GetMouseButton(0)){
+			//oPos = Input.mousePosition;
+			oPos = cam.WorldToScreenPoint(bla.position);
 
-		}
+		//}
 	}
 
 
@@ -77,12 +79,10 @@ public class GlitchEffectRedone : MonoBehaviour {
 	//	}
 	//	else{
 	//		
-	//		screenHeightHigh = Random.Range(0,Camera.main.pixelHeight);
-	//		screenHeightLow = Random.Range(0,screenHeightHigh);
-	//		screenWidthRight = Random.Range(0,Camera.main.pixelWidth);
-	//		screenWidthLeft = Random.Range(0,screenWidthRight);
-
-			print (Screen.width);
+			//screenHeightHigh = Random.Range(0,Camera.main.pixelHeight);
+			//screenHeightLow = Random.Range(0,screenHeightHigh);
+			//screenWidthRight = Random.Range(0,Camera.main.pixelWidth);
+			//screenWidthLeft = Random.Range(0,screenWidthRight);
 
 			material.SetFloat("_ScreenHeightLow",screenHeightLow);
 			material.SetFloat("_ScreenHeightHigh",screenHeightHigh);
