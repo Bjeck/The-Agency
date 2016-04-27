@@ -1,38 +1,38 @@
-TYPE§EVENTNAME§TIME§TEXT/SOUND§ROOM§Telltime§TTC§£
-TEXT§intro§3§Hello Agent. Welcome to the Class.§L§1.02§4.02§
-TEXT§intro2§5§This is the big leagues. Do you think you're ready?§K§1.53§6.53§
-AUDIO§audiotest§3§KitchenCounterCoins§K§0.57§3.57§
-AUDIO§audiotest2§5§LivingRoomTablePour§L§0.57§5.57§
-AUDIO§audiotest3§4§KitchenStove§K§0.36§4.36§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§0§0§
-§§§§§§§
+TYPE§EVENTNAME§TEXT/SOUND§ROOM§PERSON§TIME§Telltime§TTC§£
+TEXT§intro§INTRO TEXT§B§NA§1§0.3§1.3§
+TEXT§intro1§“Are you actually going to go through with this?”§B§Alyv§2§1.47§3.47§
+TEXT§intro2§“What’s… Oh.”§B§Troma§4§0.39§4.39§
+TEXT§intro3§“This is crazy.”§B§Alyv§5§0.48§5.48§
+AUDIO§audiotest§KitchenCounterCoins§K§NA§3§0.57§3.57§
+AUDIO§audiotest2§LivingRoomTablePour§L§NA§5§0.57§5.57§
+AUDIO§audiotest3§KitchenStove§K§NA§4§0.36§4.36§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§0§0§
+§§§§§§§§

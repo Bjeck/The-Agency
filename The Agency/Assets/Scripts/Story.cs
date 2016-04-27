@@ -12,16 +12,19 @@ public class Event {
 	public string room; //L, K, B, T
 	public EventType type;
 	public int time;
+	//public Color color;
 }
 
 public class TextEvent : Event {
 	public string text;
+
 	public TextEvent(string n, int t, string te, string r){
 		type = EventType.Text;
 		name = n;
 		time = t;
 		text = te;
 		room = r;
+	//	color = c;
 	}
 }
 
@@ -37,21 +40,34 @@ public class AudioEvent : Event {
 }
 
 
+public struct AgencyEvent{
+	public GameState stateToChangeTo;
+	public int time;
+
+	public AgencyEvent(GameState gs, int t){
+		stateToChangeTo = gs;
+		time = t;
+	}
+
+};
 
 
 
 public class Story : MonoBehaviour {
+
+
 
 	public TextManager txtMan;
 	public RoomManager roomM;
 	public Story_CSV_Parser csvP;
 	public int tick = 0;
 	public Dictionary<string,Event> events = new Dictionary<string, Event>();
-
-	public AudioClip clip;
-	public AudioSource srrc;
+	
+	List<AgencyEvent> gameEvents = new List<AgencyEvent>();
 
 	public GameManager gm;
+
+	List<string> introTexts = new List<string>();
 
 
 	// Use this for initialization
@@ -64,8 +80,8 @@ public class Story : MonoBehaviour {
 		
 		print(events.Count);
 
+		SetupGameEvents();
 
-		//StartCoroutine(Tick());
 	}
 
 
@@ -92,9 +108,17 @@ public class Story : MonoBehaviour {
 	            }
 			}
 
-
-
 			yield return new WaitForSeconds(1);
+
+			foreach(AgencyEvent ge in gameEvents){
+				if(ge.time == tick){
+					StartCoroutine(ChangeStateWaitForText());
+					tick++;
+					return false;
+				}
+			}
+
+
 			tick++;
 
 			//CREATE SYSTEM FOR STATE CHANGING
@@ -106,13 +130,15 @@ public class Story : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator WaitForText(){
+	public IEnumerator ChangeStateWaitForText(){
 
 		while(txtMan.isRollingLiving || txtMan.isRollingKitchen || txtMan.isRollingBedroom || txtMan.isRollingBathroom){
 			yield return new WaitForSeconds(0.2f);
 		}
 
-		gm.ChangeState(GameState.Choice);
+		yield return new WaitForSeconds(1.5f);
+
+		gm.ChangeState(GameState.Evaluation);
 		yield return new WaitForEndOfFrame();
 
 	}
@@ -127,6 +153,48 @@ public class Story : MonoBehaviour {
 		roomM.PlaySoundInRoom(e.sound);
 
 	}
+
+
+
+	public void IntroText(){
+		
+		//string s = "Welcome to your workstation, Agent. This is where you will be positioned.";
+		introTexts.Add("<color=#"+txtMan.ColorToHex(Color.red)+"> "+"Welcome to your workstation, Agent. This is where you will be positioned.</color> "+"\n\n");
+		introTexts.Add("You will be given a random suspect that you will follow for seven days.\n");
+		introTexts.Add("During this time you must follow their every move, and judge them accordingly.");
+
+
+		print (txtMan.ColorToHex(Color.black));
+		
+		StartCoroutine(IntroTextProgression());
+	}
+
+	IEnumerator IntroTextProgression(){
+		for (int i = 0; i < introTexts.Count; i++) {
+			while(txtMan.isRollingMaster){
+				yield return new WaitForSeconds(1);
+			}
+			yield return new WaitForSeconds(1.5f);
+			txtMan.AddToMaster(introTexts[i]);
+		}
+		while(txtMan.isRollingMaster){
+			yield return new WaitForEndOfFrame();
+		}
+		yield return new WaitForSeconds(2f);
+		txtMan.masterString = "";
+		gm.ChangeState(GameState.Game);
+	}
+
+
+
+
+	void SetupGameEvents(){
+
+	//	gameEvents.Add(new AgencyEvent(GameState.Evaluation,3));
+	//THIS IS HOW I DO CUTS. YAY!
+
+	}
+
 
 
 }

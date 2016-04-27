@@ -14,11 +14,13 @@ public class TextManager : MonoBehaviour {
 	public string toAddKitchen;
 	public string toAddBedroom;
 	public string toAddBathroom;
+	public string toAddMaster;
 
 	public bool isRollingLiving = false;
 	public bool isRollingKitchen = false;
 	public bool isRollingBedroom = false;
 	public bool isRollingBathroom = false;
+	public bool isRollingMaster = false;
 
 
 
@@ -32,7 +34,7 @@ public class TextManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -71,68 +73,41 @@ public class TextManager : MonoBehaviour {
 
 		switch(e.room){
 		case "Living Room":
-			if(isRollingLiving){
-				if(addspace){
-					toAddLiving += "\n";
-				}
-				toAddLiving += e.text;
+			if(addspace){
+				toAddLiving += "\n";
 			}
-			else{
-				if(addspace){
-					toAddLiving = "\n";
-				}
-				toAddLiving += e.text;
-			}
+			toAddLiving += e.text;
+
 			StartCoroutine(LivingRoomRoll());
 			break;
 		case "Kitchen":
-			if(isRollingKitchen){
-				if(addspace){
-					toAddKitchen += "\n";
-				}
-				toAddKitchen += e.text;
+			if(addspace){
+				toAddKitchen += "\n";
 			}
-			else{
-				if(addspace){
-					toAddKitchen = "\n";
-				}
-				toAddKitchen += e.text;
-			}
+			toAddKitchen += e.text;
 			StartCoroutine(KitchenRoomRoll());
 			break;
 		case "Bedroom":
-			if(isRollingBedroom){
-				if(addspace){
-					toAddBedroom += "\n";
-				}
-				toAddBedroom += e.text;
+			if(addspace){
+				toAddBedroom += "\n";
 			}
-			else{
-				if(addspace){
-					toAddBedroom = "\n";
-				}
-				toAddBedroom += e.text;
-			}
+			toAddBedroom += e.text;
 			StartCoroutine(BedroomRoomRoll());
 			break;
 		case "Bathroom":
-			if(isRollingBathroom){
-				if(addspace){
-					toAddBathroom += "\n";
-				}
-				toAddBathroom += e.text;
+			if(addspace){
+				toAddBathroom += "\n";
 			}
-			else{
-				if(addspace){
-					toAddBathroom = "\n";
-				}
-				toAddBathroom += e.text;
-			}
+			toAddBathroom += e.text;
 			StartCoroutine(BathroomRoll());
 			break;
 		}
 	}
 
+	public void AddToMaster(string s){
+		toAddMaster += s;
+		StartCoroutine(MasterRoll());
+	}
 
 
 
@@ -158,7 +133,23 @@ public class TextManager : MonoBehaviour {
 	}*/
 
 
+	public IEnumerator MasterRoll(){
+		int i = 0;
+		isRollingMaster = true;
+		
+		while(i < toAddMaster.Length){
 
+			masterString += toAddMaster[i];
+			
+			i++;
+			scrb.value = 0;
+			timeTilDone = ((toAddMaster.Length-i)*del);
+			
+			yield return new WaitForSeconds(del);
+		}
+		toAddMaster = "";
+		isRollingMaster = false;
+	}
 
 
 	public IEnumerator LivingRoomRoll(){
@@ -248,6 +239,11 @@ public class TextManager : MonoBehaviour {
 
 
 
+	public string ColorToHex(Color32 color)
+	{
+		string hex = color.r.ToString("X2") + color.g.ToString("X2") + color.b.ToString("X2");
+		return hex;
+	}
 
 
 

@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public enum GameState {Game, Choice}
+public enum GameState {Agency, Game, Evaluation, End}
 
 public class GameManager : MonoBehaviour {
 
-
+	public GameState startState;
 
 	public Canvas gameCanvas;
 	public Canvas choiceCanvas;
+	public GameObject ControlPanel;
+	public GameObject SoundThing;
+	public GameObject Buttons;
 	public GameObject why;
 	public GameObject firstChoice;
 	public InputField ipf;
@@ -28,7 +31,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		ChangeState(GameState.Game);
+		ChangeState(startState);
 
 	}
 	
@@ -40,13 +43,22 @@ public class GameManager : MonoBehaviour {
 		if(s==GameState.Game){
 			gameCanvas.gameObject.SetActive(true);
 			choiceCanvas.gameObject.SetActive(false);
+			Buttons.SetActive(true);
+			SoundThing.SetActive(true);
+			ControlPanel.SetActive(true);
 			story.StartTick();
 		}
-		else if(s==GameState.Choice){
+		else if(s==GameState.Evaluation){
 			gameCanvas.gameObject.SetActive(false);
 			choiceCanvas.gameObject.SetActive(true);
 			firstChoice.SetActive(true);
 			why.SetActive(false);
+		}
+		else if(s==GameState.Agency){
+			Buttons.SetActive(false);
+			SoundThing.SetActive(false);
+			ControlPanel.SetActive(false);
+			story.IntroText();
 		}
 
 	}
@@ -66,8 +78,6 @@ public class GameManager : MonoBehaviour {
 
 			ActivateWhy();
 		}
-
-
 	}
 
 	public void ActivateWhy(){
@@ -83,6 +93,9 @@ public class GameManager : MonoBehaviour {
 		ChangeState(GameState.Game);
 
 	}
+
+
+
 
 
 

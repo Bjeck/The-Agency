@@ -18,6 +18,22 @@ public class Story_CSV_Parser : MonoBehaviour {
 	
 	bool firstTime = true;
 
+	
+	public Dictionary<string,Color> personColors = new Dictionary<string, Color>()
+	{
+		{ "NA"	,Color.white },
+		{ "Troma"	,new Color(0.8f,0.2f,0.2f) },
+		{ "Alyv"	,new Color(0.8f,0.7f,0.2f) }
+	};
+
+	public Dictionary<string,string> personSus = new Dictionary<string, string>()
+	{
+		{ "NA"	, "" },
+		{ "Troma"	, "SUSPECT" },
+		{ "Alyv"	, "SPOUSE" }
+	};
+
+
 	// Use this for initialization
 	void Start () {
 		print("WHAT");
@@ -52,7 +68,7 @@ public class Story_CSV_Parser : MonoBehaviour {
 				
 				if(line != null && !firstTime && line.Substring(0,4) != "SKIP"){
 				//	print ("LINE: "+line);
-					e = (line.Split('?').ToList()); //U+03B1 THAT SUCKS
+					e = (line.Split('§').ToList()); //U+03B1 THAT SUCKS
 
 					//foreach(string s in e){
 					//	print (s);
@@ -62,17 +78,17 @@ public class Story_CSV_Parser : MonoBehaviour {
 					print(e[0]);
 					if(e[0] == "TEXT"){
 						//CREATE TEXT EVENT
-						ev = new TextEvent(e[1],int.Parse(e[2]),e[3],e[4]);
+						ev = new TextEvent(e[1],int.Parse(e[5]),(personSus[e[4]]+": "+e[2]),e[3]); // ("<"+e[2]+">")
 					}
 					else if(e[0] == "AUDIO"){
-						ev = new AudioEvent(e[1],int.Parse(e[2]),e[3],e[4]);
+						ev = new AudioEvent(e[1],int.Parse(e[5]),e[2],e[3]);
 					}
 
 					print("parsed "+ev.name);
 
 					if(ev != null){
 
-						switch(e[4]){
+						switch(e[3]){
 						case "L":
 							ev.room = "Living Room";
 							break;
