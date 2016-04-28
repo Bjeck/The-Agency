@@ -74,11 +74,17 @@ public class Story : MonoBehaviour {
 	void Start () {
 
 		//Getting text from parser.
+
 		foreach(Event e in csvP.eventsParsed){
-			events.Add(e.name,e);
+			try{
+				events.Add(e.name,e);
+			}
+			catch{
+				Debug.LogError ("DID NOT ADD "+e.name);
+			}
 		}
 		
-		print(events.Count);
+		print("Beginning Story with "+events.Count+" events.");
 
 		SetupGameEvents();
 
@@ -146,11 +152,21 @@ public class Story : MonoBehaviour {
 
 
 	public void DoTextEvent(TextEvent e){
-		txtMan.AddToText(e, true);
+		try{
+			txtMan.AddToText(e, true);
+		}
+		catch{
+			Debug.LogError("COULD NOT PLAY "+e.name);
+		}
 	}
 
 	public void DoAudioEvent(AudioEvent e){
-		roomM.PlaySoundInRoom(e.sound);
+		try{
+			roomM.PlaySoundInRoom(e.sound);
+		}
+		catch{
+			Debug.LogError("COULD NOT PLAY "+e.name);
+		}
 
 	}
 
@@ -159,9 +175,16 @@ public class Story : MonoBehaviour {
 	public void IntroText(){
 		
 		//string s = "Welcome to your workstation, Agent. This is where you will be positioned.";
-		introTexts.Add("<color=#"+txtMan.ColorToHex(Color.red)+"> "+"Welcome to your workstation, Agent. This is where you will be positioned.</color> "+"\n\n");
-		introTexts.Add("You will be given a random suspect that you will follow for seven days.\n");
-		introTexts.Add("During this time you must follow their every move, and judge them accordingly.");
+		introTexts.Add("Welcome to The Interface. This is where you will be working."+"\n\n");
+		introTexts.Add("As this is your first day, we will brief you on the basics. \n");
+		introTexts.Add("However, as you have been accepted into this position, Agent, we assume you know both the gravity and severity of the task at hand. \n\n\n");
+		introTexts.Add("Soon, you will be given a suspect, picked at random. Your job is to report any suspicious activity. You will monitor them 24/7 in their home, for seven full days.\n\n");
+		introTexts.Add("Anything that happens, you will be able to hear. Any outgoing and incoming messaging traffic you will be able to read.         \n\n");
+		introTexts.Add("We record and process all data. It is cleaned so all linguistic artifacts, accent, vocal intonation, and gender has been removed.            \n");
+		introTexts.Add("They are completely anonymous.\n");
+		introTexts.Add("Thus, you will judge them based on their words alone.                           \n\n\nWe trust you will judge well.\n");
+
+
 
 
 		print (txtMan.ColorToHex(Color.black));

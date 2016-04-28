@@ -71,35 +71,44 @@ public class TextManager : MonoBehaviour {
 
 	public void AddToText(TextEvent e, bool addspace){
 
+//		print ("ADDING TEXT "+e.text+" "+toAddBedroom);
+
 		switch(e.room){
 		case "Living Room":
 			if(addspace){
 				toAddLiving += "\n";
 			}
 			toAddLiving += e.text;
-
-			StartCoroutine(LivingRoomRoll());
+			if(!isRollingLiving){
+				StartCoroutine(LivingRoomRoll());
+			}
 			break;
 		case "Kitchen":
 			if(addspace){
 				toAddKitchen += "\n";
 			}
 			toAddKitchen += e.text;
-			StartCoroutine(KitchenRoomRoll());
+			if(!isRollingKitchen){
+				StartCoroutine(KitchenRoomRoll());
+			}
 			break;
 		case "Bedroom":
 			if(addspace){
 				toAddBedroom += "\n";
 			}
 			toAddBedroom += e.text;
-			StartCoroutine(BedroomRoomRoll());
+			if(!isRollingBedroom){
+				StartCoroutine(BedroomRoomRoll());
+			}
 			break;
 		case "Bathroom":
 			if(addspace){
 				toAddBathroom += "\n";
 			}
 			toAddBathroom += e.text;
-			StartCoroutine(BathroomRoll());
+			if(!isRollingBathroom){
+				StartCoroutine(BathroomRoll());
+			}
 			break;
 		}
 	}
@@ -194,13 +203,14 @@ public class TextManager : MonoBehaviour {
 	public IEnumerator BedroomRoomRoll(){
 		int i = 0;
 		isRollingBedroom = true;
+		//print ("STARTING BEDROOM ROLL");
 
 		while(i< toAddBedroom.Length){
 			
 			if(roomM.roomIAmIn == "Bedroom"){
 				masterString += toAddBedroom[i];
 			}
-			
+
 			i++;
 			scrb.value = 0;
 			timeTilDone = ((toAddBedroom.Length-i)*del);

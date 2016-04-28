@@ -1,38 +1,52 @@
 TYPE§EVENTNAME§TEXT/SOUND§ROOM§PERSON§TIME§Telltime§TTC§£
 TEXT§intro§INTRO TEXT§B§NA§1§0.3§1.3§
-TEXT§intro1§“Are you actually going to go through with this?”§B§Alyv§2§1.47§3.47§
-TEXT§intro2§“What’s… Oh.”§B§Troma§4§0.39§4.39§
-TEXT§intro3§“This is crazy.”§B§Alyv§5§0.48§5.48§
-AUDIO§audiotest§KitchenCounterCoins§K§NA§3§0.57§3.57§
-AUDIO§audiotest2§LivingRoomTablePour§L§NA§5§0.57§5.57§
-AUDIO§audiotest3§KitchenStove§K§NA§4§0.36§4.36§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§0§0§
-§§§§§§§§
+TEXT§intro1§“Oh my god, are you actually going through with this?”§B§Alyv§6§1.62§7.62§
+TEXT§intro2§“What’s… Oh.”§B§Troma§9§0.39§9.39§
+TEXT§intro3§“This is crazy. You know that? Nuts.”§B§Alyv§10§1.11§11.11§
+TEXT§intro4§“It’s not a problem.”§B§Troma§12§0.63§12.63§
+TEXT§intro5§“How can you think that? Living here? We came here to stop… No, I’m not going to start that conversation now… Just, please tell me you aren’t doing actually pulling through with this.”§B§Alyv§13§5.52§18.52§
+TEXT§intro6§“Alyv. We know what we’re doing.”§B§Troma§20§0.99§20.99§
+TEXT§intro7§“It’s not that I don’t trust you, Trom. But you’ve got to realize that what you’re doing puts me at risk too! If my boss found out about this--”§B§Alyv§21§4.32§25.32§
+TEXT§intro8§“Oh, please. Go on and on about your job again, please. I’d love to hear more.”§B§Troma§26§2.37§28.37§
+TEXT§intro9§“Shit, not again. I’m not talking about my job. I’m talking about us here. If I lose my job, then how’re we going to survive?”§B§Alyv§29§3.78§32.78§
+TEXT§intro10§“And you think I don’t know that it’s a risk? You think I haven’t thought about the consequences?”§B§Troma§34§2.94§36.94§
+TEXT§intro11§"""Clearly not.”"§B§Alyv§37§0.42§37.42§
+TEXT§intro12§“This my job, my life. I want to set things right. I want to be able to live like we did back home.”§B§Troma§38§3§41§
+TEXT§intro13§“And you think they’ll all just let you?”§B§Alyv§42§1.23§43.23§
+TEXT§intro14§“Stay out of it then. I’m not asking you to get involved. This is my business.”§B§Troma§44§2.37§46.37§
+TEXT§intro15§“I can’t! I literally can’t! I’m your wife! It’s not like your life is a distant, faraway thing I don’t have to worry about.”§B§Alyv§47§3.75§50.75§
+TEXT§intro16§“You want to be in? That’s fine. I bet we can arrange it with the boys.”§B§Troma§52§2.16§54.16§
+TEXT§intro17§“God, you are thick sometimes. Okay, I’m going.”§B§Alyv§55§1.44§56.44§
+TEXT§intro18§“Where?”§L§Troma§60§0.24§60.24§
+TEXT§intro19§“Gerald’s place.”§L§Alyv§61§0.51§61.51§
+TEXT§intro20§“Gerald?”§L§Troma§62§0.27§62.27§
+TEXT§intro21§“Yeah.”§L§Alyv§63§0.21§63.21§
+TEXT§intro22§“That guy from your work?”§L§Troma§64§0.78§64.78§
+TEXT§intro23§“Yes. We’ve got an important presentation tomorrow, so we’re going through it tonight.”§L§Alyv§66§2.61§68.61§
+TEXT§intro24§“What? You didn’t tell me. Thought you were home for dinner for a change.”§L§Troma§69§2.22§71.22§
+TEXT§intro25§“I told you last week.”§L§Alyv§72§0.69§72.69§
+TEXT§intro26§“Last week? You weren’t even home last week.”§L§Troma§73§1.35§74.35§
+TEXT§intro27§“I was! Thursday! We talked in the evening.”§L§Alyv§75§1.32§76.32§
+TEXT§intro28§“Oh, right, that conversation where you were talking to the bathroom mirror while I was cooking leftovers for you. Right, you thought I was paying attention there?”§L§Troma§78§4.92§82.92§
+TEXT§intro29§“Yes, I actually did. Would it hurt you to pay attention to me for more than five minutes!”§L§Alyv§84§2.73§86.73§
+TEXT§intro30§“It’d help if you were home for more than that!”§L§Troma§87§1.44§88.44§
+TEXT§intro31§“I am! Please listen to me so you can actually remember it!”§L§Alyv§90§1.8§91.8§
+TEXT§intro32§“You say, as you’re hastily leaving.”§L§Troma§92§1.11§93.11§
+TEXT§intro33§“Oh, why do you always make things this complicated?”§L§Alyv§94§1.59§95.59§
+TEXT§intro34§“Fuck. Just leave already.”§L§Troma§96§0.81§96.81§
+TEXT§intro35§“Fine.”§L§Alyv§97§0.21§97.21§
+TEXT§intro36§“See you later.”§L§Troma§98§0.48§98.48§
+TEXT§intro37§“Yeah.”§L§Alyv§99§0.21§99.21§
+AUDIO§audioambience1§KitchenDishwasher§K§NA§0§§§
+AUDIO§audioambience2§BedroomTraffic§B§NA§0§§§
+AUDIO§audioambience3§BedroomWindowSmoke§B§NA§1§§§
+AUDIO§audiointro1§BedroomWindowCough§B§NA§2§§§
+AUDIO§audiointro2§BedroomDoorToLivingRoomOpen§B§NA§5§§§
+AUDIO§audiointro3§BedroomDoorToLivingRoomClose§B§NA§6§§§
+AUDIO§audiointro4§BedroomDoorToLivingRoomOpen§B§NA§56§§§
+AUDIO§audiointro5§BedroomDoorToLivingRoomClose§B§NA§58§§§
+AUDIO§audiointro6§LivingRoomWardrobeZipper§L§NA§93§§§
+AUDIO§audiointro7§LivingRoomExitDoorOpen§L§NA§98§§§
+AUDIO§audiointro8§LivingRoomExitDoorCloseSlam§L§NA§100§§§
+AUDIO§audiointro9§LivingRoomSofaSitOn§L§NA§103§§§
+AUDIO§audiointro10§LivingRoomTVOn§L§NA§104§§§

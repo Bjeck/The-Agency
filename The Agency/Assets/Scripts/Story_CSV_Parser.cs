@@ -36,14 +36,14 @@ public class Story_CSV_Parser : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		print("WHAT");
+		//print("WHAT");
 		Load (textfileName);
 	}
 	
 
 	private bool Load(string fileName)
 	{
-		print("LOADING");
+		//print("LOADING");
 		// Handle any problems that might arise when reading the text
 		
 		string line;
@@ -75,7 +75,7 @@ public class Story_CSV_Parser : MonoBehaviour {
 					//}
 
 					Event ev = null;
-					print(e[0]);
+					//print(e[0]);
 					if(e[0] == "TEXT"){
 						//CREATE TEXT EVENT
 						ev = new TextEvent(e[1],int.Parse(e[5]),(personSus[e[4]]+": "+e[2]),e[3]); // ("<"+e[2]+">")
@@ -84,7 +84,7 @@ public class Story_CSV_Parser : MonoBehaviour {
 						ev = new AudioEvent(e[1],int.Parse(e[5]),e[2],e[3]);
 					}
 
-					print("parsed "+ev.name);
+					//print("parsed "+ev.name);
 
 					if(ev != null){
 
@@ -104,10 +104,10 @@ public class Story_CSV_Parser : MonoBehaviour {
 						}
 
 						eventsParsed.Add(ev);
-						print("parsed room "+ev.name);
+						//print("parsed room "+ev.name);
 					}
 
-					print ("EVENT PARSED: "+eventsParsed[lineCounter].name+" "+eventsParsed[lineCounter].time+" "+eventsParsed[lineCounter].room);
+					//print ("EVENT PARSED: "+eventsParsed[lineCounter].name+" "+eventsParsed[lineCounter].time+" "+eventsParsed[lineCounter].room);
 					lineCounter++;
 				}
 				if(firstTime){
