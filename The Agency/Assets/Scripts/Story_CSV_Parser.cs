@@ -67,8 +67,8 @@ public class Story_CSV_Parser : MonoBehaviour {
 				line = theReader.ReadLine();
 				
 				if(line != null && !firstTime && line.Substring(0,4) != "SKIP"){
-				//	print ("LINE: "+line);
-					e = (line.Split('§').ToList()); //U+03B1 THAT SUCKS
+					//print ("LINE: "+line);
+					e = (line.Split(';').ToList()); //U+03B1 THAT SUCKS
 
 					//foreach(string s in e){
 					//	print (s);

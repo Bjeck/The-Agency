@@ -13,7 +13,7 @@ public class Person : MonoBehaviour {
 	public List<string> recentCreditCardTransactions = new List<string>();
 	public string education;
 	public string socialsecurityNr;
-
+	public string countryOfOrigin;
 	//credit card??
 	//phone number??
 

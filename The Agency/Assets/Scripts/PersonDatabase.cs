@@ -13,8 +13,12 @@ public class PersonDatabase : MonoBehaviour {
 
 	public List<Person> people = new List<Person>();
 
+	public GameObject peopleObj;
+
 	// Use this for initialization
 	void Start () {
+
+		people.AddRange(peopleObj.transform.GetComponentsInChildren<Person>());
 	
 	}
 	
@@ -27,7 +31,6 @@ public class PersonDatabase : MonoBehaviour {
 
 
 	public void Search(){
-		print (ipf.text);
 		ipf.text = ipf.text.ToLower();
 		foreach(Person p in people){
 			if(ipf.text == p.pName.ToLower() || ipf.text == (p.ID).ToString()){
@@ -40,6 +43,7 @@ public class PersonDatabase : MonoBehaviour {
 
 	public void ShowPerson(Person p){
 		//SHOW
+		print("showing "+p.name);
 
 		img.color = Color.white;
 		bImg.color = Color.white;
@@ -61,7 +65,7 @@ public class PersonDatabase : MonoBehaviour {
 		put += "\n\nRelations: ";
 		if(p.relations.Count > 0){
 			foreach(Person r in p.relations){
-				put += "\n"+r.pName;
+				put += "\n"+r.name;
 			}
 		}
 		output.text = put;
