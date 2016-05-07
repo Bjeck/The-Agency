@@ -16,10 +16,14 @@ public class AudioObject : MonoBehaviour {
 	
 
 	//PLAY AUDIO. Picks a random one of several audioclips on this audioobject, and plays it at the source.
-	public void PlayAudio(){
+	public void PlayAudio(GameObject prefabToSpawn){
 		int r = Random.Range(0,audios.Count);
 		source.clip = audios[r];
 		source.Play();
+
+		GameObject g = (GameObject)Instantiate(prefabToSpawn,transform.position+(Vector3.up*2),Quaternion.identity);
+		g.GetComponent<Self_Destroy>().timeTilDestroy = audios[r].length+1f;
+
 	}
 
 

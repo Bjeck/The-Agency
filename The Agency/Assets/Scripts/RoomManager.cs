@@ -20,6 +20,8 @@ public class RoomManager : MonoBehaviour {
 	public List<GameObject> objectLists = new List<GameObject>();
 	public Dictionary<string, AudioObject> roomAudio = new Dictionary<string,AudioObject>();
 
+	public GameObject soundIsPlayingPrefab;
+
 	// Use this for initialization
 	void Start () {
 		rooms.Add("Living Room",micPoss[0]);
@@ -27,8 +29,7 @@ public class RoomManager : MonoBehaviour {
 		rooms.Add("Bedroom",micPoss[2]);
 		rooms.Add("Bathroom",micPoss[3]);
 
-		//SETUP AUDIO OBJECTS (SHOULD DO THIS AUTOMATICALLY / RIGHT NOW THEY HAVE TO BE SET IN EDITOR)
-
+		//SETUP AUDIO OBJECTS
 		foreach(GameObject g in objectLists){
 			foreach(Transform c in g.transform){
 				roomAudio.Add(c.gameObject.name,c.gameObject.GetComponent<AudioObject>());
@@ -78,8 +79,9 @@ public class RoomManager : MonoBehaviour {
 
 
 
-	public void PlaySoundInRoom(string s){
-		roomAudio[s].PlayAudio();
+	public void PlaySoundInRoom(AudioEvent s){
+		roomAudio[s.sound].PlayAudio(soundIsPlayingPrefab);
+
 	}
 
 

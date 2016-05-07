@@ -22,7 +22,11 @@ public class TextManager : MonoBehaviour {
 	public bool isRollingBathroom = false;
 	public bool isRollingMaster = false;
 
+	public AudioSource currentTextSound;
 
+	public AudioSource masterTextSound;
+	public AudioSource alyvTextSound;
+	public AudioSource tromaTextSound;
 
 	public float timeTilDone = 0;
 
@@ -32,9 +36,24 @@ public class TextManager : MonoBehaviour {
 	public RoomManager roomM;
 
 
+	public Dictionary<string,Color> personColors = new Dictionary<string, Color>()
+	{
+		{ "NA"	,Color.white },
+		{ "Troma"	,new Color(0.8f,0.2f,0.2f) },
+		{ "Alyv"	,new Color(0.8f,0.7f,0.2f) }
+	};
+
+	public Dictionary<string,string> personSus = new Dictionary<string, string>()
+	{
+		{ "NA"	, "" },
+		{ "Troma"	, "SUSPECT" },
+		{ "Alyv"	, "SPOUSE" }
+	};
+
+
 	// Use this for initialization
 	void Start () {
-
+		currentTextSound = masterTextSound;
 	}
 	
 	// Update is called once per frame
@@ -78,36 +97,36 @@ public class TextManager : MonoBehaviour {
 			if(addspace){
 				toAddLiving += "\n";
 			}
-			toAddLiving += e.text;
+			toAddLiving += personSus[e.person]+": "+e.text;
 			if(!isRollingLiving){
-				StartCoroutine(LivingRoomRoll());
+				StartCoroutine(LivingRoomRoll(e));
 			}
 			break;
 		case "Kitchen":
 			if(addspace){
 				toAddKitchen += "\n";
 			}
-			toAddKitchen += e.text;
+			toAddKitchen += personSus[e.person]+": "+e.text;
 			if(!isRollingKitchen){
-				StartCoroutine(KitchenRoomRoll());
+				StartCoroutine(KitchenRoomRoll(e));
 			}
 			break;
 		case "Bedroom":
 			if(addspace){
 				toAddBedroom += "\n";
 			}
-			toAddBedroom += e.text;
+			toAddBedroom += personSus[e.person]+": "+e.text;
 			if(!isRollingBedroom){
-				StartCoroutine(BedroomRoomRoll());
+				StartCoroutine(BedroomRoomRoll(e));
 			}
 			break;
 		case "Bathroom":
 			if(addspace){
 				toAddBathroom += "\n";
 			}
-			toAddBathroom += e.text;
+			toAddBathroom += personSus[e.person]+": "+e.text;
 			if(!isRollingBathroom){
-				StartCoroutine(BathroomRoll());
+				StartCoroutine(BathroomRoll(e));
 			}
 			break;
 		}
@@ -149,11 +168,19 @@ public class TextManager : MonoBehaviour {
 		while(i < toAddMaster.Length){
 
 			masterString += toAddMaster[i];
-			
+
+			if(toAddMaster[i] != ' '){
+			//	masterTextSound.pitch = Random.Range(0.99f,1.01f);
+				masterTextSound.Play();
+			}
+
+
+
 			i++;
 			scrb.value = 0;
 			timeTilDone = ((toAddMaster.Length-i)*del);
-			
+
+
 			yield return new WaitForSeconds(del);
 		}
 		toAddMaster = "";
@@ -161,14 +188,24 @@ public class TextManager : MonoBehaviour {
 	}
 
 
-	public IEnumerator LivingRoomRoll(){
+	public IEnumerator LivingRoomRoll(TextEvent e){
 		int i = 0;
 		isRollingLiving = true;
 
 		while(i< toAddLiving.Length){
 
 			if(roomM.roomIAmIn == "Living Room"){
+			//	if(toAddLiving[i] == '¤'){
+			//		masterString += ParsePerson(e);
+			//	}
+
+
 				masterString += toAddLiving[i];
+
+				if(toAddLiving[i] != ' '){
+				//	currentTextSound.pitch = Random.Range(0.99f,1.01f);
+					currentTextSound.Play();
+				}
 			}
 
 			i++;
@@ -181,14 +218,21 @@ public class TextManager : MonoBehaviour {
 		toAddLiving = "";
 	}
 
-	public IEnumerator KitchenRoomRoll(){
+	public IEnumerator KitchenRoomRoll(TextEvent e){
 		int i = 0;
 		isRollingKitchen = true;
 		while(i< toAddKitchen.Length){
 			
 			if(roomM.roomIAmIn == "Kitchen"){
 				masterString += toAddKitchen[i];
+
+				if(toAddKitchen[i] != ' '){
+				//	currentTextSound.pitch = Random.Range(0.99f,1.01f);
+					currentTextSound.Play();
+				}
 			}
+
+
 			
 			i++;
 			scrb.value = 0;
@@ -200,7 +244,7 @@ public class TextManager : MonoBehaviour {
 		toAddKitchen = "";
 	}
 
-	public IEnumerator BedroomRoomRoll(){
+	public IEnumerator BedroomRoomRoll(TextEvent e){
 		int i = 0;
 		isRollingBedroom = true;
 		//print ("STARTING BEDROOM ROLL");
@@ -208,8 +252,20 @@ public class TextManager : MonoBehaviour {
 		while(i< toAddBedroom.Length){
 			
 			if(roomM.roomIAmIn == "Bedroom"){
+				//if(toAddBedroom[i] == '¤'){
+				//	print("found Person Marker");
+				//	masterString += ParsePerson(e);
+				//}
+				//ParsePerson(e);
 				masterString += toAddBedroom[i];
+
+				if(toAddBedroom[i] != ' '){
+				//	currentTextSound.pitch = Random.Range(0.99f,1.01f);
+					currentTextSound.Play();
+				}
 			}
+
+
 
 			i++;
 			scrb.value = 0;
@@ -221,7 +277,7 @@ public class TextManager : MonoBehaviour {
 		toAddBedroom = "";
 	}
 
-	public IEnumerator BathroomRoll(){
+	public IEnumerator BathroomRoll(TextEvent e){
 		int i = 0;
 		isRollingBathroom = true;
 
@@ -229,8 +285,15 @@ public class TextManager : MonoBehaviour {
 			
 			if(roomM.roomIAmIn == "Bathroom"){
 				masterString += toAddBathroom[i];
+
+				if(toAddBathroom[i] != ' '){
+				//	currentTextSound.pitch = Random.Range(0.99f,1.01f);
+					currentTextSound.Play();
+				}
 			}
-			
+
+
+
 			i++;
 			scrb.value = 0;
 			timeTilDone = ((toAddBathroom.Length-i)*del);
@@ -256,7 +319,26 @@ public class TextManager : MonoBehaviour {
 	}
 
 
+	public string ParsePerson(TextEvent e){
 
+		print("parsing");
+		switch(e.person){
+		case "Alyv":
+			print("Alyv detected");
+			currentTextSound = alyvTextSound;
+			break;
+		case "Troma":
+			print("Troma detected");
+			currentTextSound = tromaTextSound;
+			break;
+		default:
+			print("NO ONE detected");
+			currentTextSound = masterTextSound;
+			break;
+		};
+
+		return personSus[e.person];
+	}
 
 
 

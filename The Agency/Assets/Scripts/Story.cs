@@ -17,13 +17,15 @@ public class Event {
 
 public class TextEvent : Event {
 	public string text;
+	public string person;
 
-	public TextEvent(string n, int t, string te, string r){
+	public TextEvent(string n, int t, string te, string r, string p){
 		type = EventType.Text;
 		name = n;
 		time = t;
 		text = te;
 		room = r;
+		person = p;
 	//	color = c;
 	}
 }
@@ -162,7 +164,7 @@ public class Story : MonoBehaviour {
 
 	public void DoAudioEvent(AudioEvent e){
 		try{
-			roomM.PlaySoundInRoom(e.sound);
+			roomM.PlaySoundInRoom(e);
 		}
 		catch{
 			Debug.LogError("COULD NOT PLAY "+e.name);
@@ -213,7 +215,7 @@ public class Story : MonoBehaviour {
 
 	void SetupGameEvents(){
 
-		gameEvents.Add(new AgencyEvent(GameState.Evaluation,110));
+		gameEvents.Add(new AgencyEvent(GameState.Evaluation,185));
 	//THIS IS HOW I DO CUTS. YAY!
 
 	}

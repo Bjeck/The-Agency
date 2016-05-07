@@ -19,43 +19,28 @@ public class Story_CSV_Parser : MonoBehaviour {
 	bool firstTime = true;
 
 	
-	public Dictionary<string,Color> personColors = new Dictionary<string, Color>()
-	{
-		{ "NA"	,Color.white },
-		{ "Troma"	,new Color(0.8f,0.2f,0.2f) },
-		{ "Alyv"	,new Color(0.8f,0.7f,0.2f) }
-	};
 
-	public Dictionary<string,string> personSus = new Dictionary<string, string>()
-	{
-		{ "NA"	, "" },
-		{ "Troma"	, "SUSPECT" },
-		{ "Alyv"	, "SPOUSE" }
-	};
 
 
 	// Use this for initialization
 	void Start () {
-		//print("WHAT");
-		Load (textfileName);
+
+		TextAsset txtfile = (TextAsset)Resources.Load(textfileName);
+		print(txtfile.text);
+		Load(txtfile.text);
+
 	}
 	
 
 	private bool Load(string fileName)
 	{
-		//print("LOADING");
-		// Handle any problems that might arise when reading the text
-		
+
 		string line;
 		line = "";
-		// Create a new StreamReader, tell it which file to read and what encoding the file
-		// was saved as
-		StreamReader theReader = new StreamReader(fileName, Encoding.Default);
-		// Immediately clean up the reader after this block of code is done.
-		// You generally use the "using" statement for potentially memory-intensive objects
-		// instead of relying on garbage collection.
-		// (Do not confuse this with the using directive for namespace at the 
-		// beginning of a class!)
+
+
+		StringReader theReader = new StringReader(fileName);
+
 		using (theReader)
 		{
 			// While there's lines left in the text file, do this:
@@ -78,7 +63,8 @@ public class Story_CSV_Parser : MonoBehaviour {
 					//print(e[0]);
 					if(e[0] == "TEXT"){
 						//CREATE TEXT EVENT
-						ev = new TextEvent(e[1],int.Parse(e[5]),(personSus[e[4]]+": "+e[2]),e[3]); // ("<"+e[2]+">")
+						ev = new TextEvent(e[1],int.Parse(e[5]),e[2],e[3],e[4]); // ("<"+e[2]+">")
+						print(e[2]);
 					}
 					else if(e[0] == "AUDIO"){
 						ev = new AudioEvent(e[1],int.Parse(e[5]),e[2],e[3]);
@@ -124,3 +110,88 @@ public class Story_CSV_Parser : MonoBehaviour {
 
 
 }
+
+/*
+using System.Text;
+using System.IO;
+using System.Linq;
+​
+​
+public class CSVParser : MonoBehaviour {
+​
+	public string textfileName;
+​
+	List<string> instances = new List<string>();
+	List<string> e = new List<string>(); 
+	List<LeakEvent> eventsParsed = new List<LeakEvent>();
+	public CrisisManager crisis;
+​
+	bool firstTime = true;
+​
+	// Use this for initialization
+	void Start () {
+		print("loading");
+​
+		TextAsset txtfile = (TextAsset)Resources.Load("csvsheet");
+		print(" HELLO "+txtfile.text);
+		Load(txtfile.text);
+​
+		crisis.LoadEventList(eventsParsed);
+	}
+	
+	private bool Load(string fileText)
+	{
+		
+		string line;
+		line = "";
+​
+		StringReader theReader = new StringReader(fileText);
+​
+		using (theReader)
+		{
+			// While there's lines left in the text file, do this:
+			int lineCounter = 0;
+			while(line != null){
+				instances.Clear();
+				e.Clear();
+				//print("reading line");
+				line = theReader.ReadLine();
+				//print(line+" "+firstTime);
+				if(line != null && !firstTime){
+					//print ("LINE: "+line);
+					e = (line.Split(',').ToList());
+​
+					LeakEvent l = new LeakEvent();
+​
+					l.text = e[0];
+					l.duration = float.Parse(e[2]);
+					l.publicRelation.leakMitigation = float.Parse(e[3]);
+					l.publicRelation.moleDiscovery = float.Parse(e[4]);
+					l.it.leakMitigation = float.Parse(e[5]);
+					l.it.moleDiscovery = float.Parse(e[6]);
+					l.accounting.leakMitigation = float.Parse(e[7]);
+					l.accounting.moleDiscovery = float.Parse(e[8]);
+					l.humanResources.leakMitigation = float.Parse(e[9]);
+					l.humanResources.moleDiscovery = float.Parse(e[10]);
+​
+					print("parsed "+l.text+" "+e.Count+" "+l.duration+" "+l.it.leakMitigation+" "+l.humanResources.leakMitigation);
+					//l.hacker.leakMitigation
+					//	ev = new TextEvent(e[1],int.Parse(e[2]),e[3],e[4]);
+​
+					eventsParsed.Add(l);
+​
+				}
+​
+					lineCounter++;
+				if(firstTime){
+					firstTime = false;
+				}
+			}
+		}
+		// Done reading, close the reader and return true to broadcast success    
+		theReader.Close();
+		return true;
+​
+	}
+}
+*/
