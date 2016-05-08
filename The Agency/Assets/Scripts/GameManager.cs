@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum GameState {Agency, Game, Evaluation, End}
 
@@ -34,6 +35,27 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		ChangeState(startState);
 
+	}
+
+	void Update(){
+		if(Input.GetKey(KeyCode.Escape)){
+			Application.Quit();
+		}
+
+		if(Input.GetKey(KeyCode.R)){
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
+
+		if(Input.GetKey(KeyCode.G)){
+			story.tick = 0;
+//			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			ChangeState(GameState.Game);
+		}
+		if(Input.GetKey(KeyCode.A)){
+//			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			ChangeState(GameState.Agency);
+		}
+			
 	}
 	
 

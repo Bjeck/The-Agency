@@ -199,6 +199,9 @@ public class Story : MonoBehaviour {
 			while(txtMan.isRollingMaster){
 				yield return new WaitForSeconds(1);
 			}
+			if(gm.state != GameState.Agency){
+				break;
+			}
 			yield return new WaitForSeconds(1.5f);
 			txtMan.AddToMaster(introTexts[i]);
 		}
@@ -206,8 +209,11 @@ public class Story : MonoBehaviour {
 			yield return new WaitForEndOfFrame();
 		}
 		yield return new WaitForSeconds(2f);
-		txtMan.masterString = "";
-		gm.ChangeState(GameState.Game);
+		if(gm.state == GameState.Agency){
+			txtMan.masterString = "";
+			gm.ChangeState(GameState.Game);		
+		}
+		
 	}
 
 
