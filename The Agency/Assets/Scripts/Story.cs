@@ -180,7 +180,7 @@ public class Story : MonoBehaviour {
 		introTexts.Add("Welcome to The Interface. This is where you will be working."+"\n\n");
 		introTexts.Add("As this is your first day, we will brief you on the basics. \n");
 		introTexts.Add("However, as you have been accepted into this position, Agent, we assume you know both the gravity and severity of the task at hand. \n\n\n");
-		introTexts.Add("Soon, you will be given a suspect, picked at random. Your job is to report any suspicious activity. You will monitor them 24/7 in their home, for seven full days.\n\n");
+		introTexts.Add("Soon, you will be given a suspect, picked at random. Your job is to report any suspicious activity. You will monitor them all day in their home, for seven full days.\n\n");
 		introTexts.Add("Anything that happens, you will be able to hear. Any outgoing and incoming messaging traffic you will be able to read.         \n\n");
 		introTexts.Add("We record and process all data. It is cleaned so all linguistic artifacts, accent, vocal intonation, and gender has been removed.            \n");
 		introTexts.Add("They are completely anonymous.\n");
