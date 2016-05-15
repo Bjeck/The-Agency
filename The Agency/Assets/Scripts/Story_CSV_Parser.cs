@@ -64,7 +64,7 @@ public class Story_CSV_Parser : MonoBehaviour {
 					if(e[0] == "TEXT"){
 						//CREATE TEXT EVENT
 						ev = new TextEvent(e[1],int.Parse(e[5]),e[2],e[3],e[4]); // ("<"+e[2]+">")
-						print(e[2]);
+//						print(e[2]);
 					}
 					else if(e[0] == "AUDIO"){
 						ev = new AudioEvent(e[1],int.Parse(e[5]),e[2],e[3]);

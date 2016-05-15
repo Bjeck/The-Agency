@@ -20,7 +20,7 @@ public class AudioAnalyzer : MonoBehaviour {
 	public float volumeRef = 0.1f;
 	public float specScale = 20f;
 
-	public GlitchEffectRedone gle;
+	public GlitchEffectArray gle;
 
 	void Start() {
 		numberleft = new float[numSamples];
