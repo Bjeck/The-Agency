@@ -33,6 +33,10 @@ public class audiotesting : MonoBehaviour {
 
 	public GlitchEffectArray gle;
 
+
+	public lineVolume lineVol;
+
+
 	void Start() {
 		numberleft = new float[numSamples];
 		numberright = new float[numSamples];
@@ -167,6 +171,10 @@ public class audiotesting : MonoBehaviour {
 	//	print(volumenumber*volumeScale);
 		gle.audioVolume = volumenumber*volumeScale;
 		//transform.localScale = Vector3.Lerp(transform.localScale,new Vector3(transform.localScale.x,volumenumber*volumeScale,1),Time.deltaTime);
+
+		lineVol.AddNewVolume(volumenumber*volumeScale);
+
+
 	}
 
 /*

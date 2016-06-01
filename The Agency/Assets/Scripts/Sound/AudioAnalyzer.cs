@@ -22,13 +22,14 @@ public class AudioAnalyzer : MonoBehaviour {
 
 	public GlitchEffectArray gle;
 
+	public lineVolume lineVol;
+
 	void Start() {
 		numberleft = new float[numSamples];
 		numberright = new float[numSamples];
 		volumeSamples = new float[numSamples];
 
 		volumenumber = 0;
-
 	}
 
 	// Update is called once per frame
@@ -99,6 +100,10 @@ public class AudioAnalyzer : MonoBehaviour {
 		volumenumber = (1/Mathf.Abs(20*Mathf.Log10(volumenumber/volumeRef))); //convert to dB
 
 		gle.audioVolume = volumenumber*volumeScale;
+
+		lineVol.AddNewVolume(volumenumber*volumeScale);
+
+
 	}
 
 }
