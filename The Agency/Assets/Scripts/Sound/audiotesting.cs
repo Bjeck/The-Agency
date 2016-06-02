@@ -62,15 +62,15 @@ public class audiotesting : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		AudioListener.GetSpectrumData (numberleft, 0,FFTWindow.BlackmanHarris);
-		AudioListener.GetSpectrumData (numberright, 1,FFTWindow.BlackmanHarris);
+		//AudioListener.GetSpectrumData (numberleft, 0,FFTWindow.BlackmanHarris);
+		//AudioListener.GetSpectrumData (numberright, 1,FFTWindow.BlackmanHarris);
 
 		//	22050/samplenumber = 21
 		//	TO FIND ELEMENT IN ARRAY: 
 		//	FrequencyYouWant / 21(result from last)
 		// 441 Hz -> [21]. that's then numberleft[21]
 	//	print (numberleft[21]);
-
+		/*
 
 		float freq;
 
@@ -121,7 +121,7 @@ public class audiotesting : MonoBehaviour {
 				//}
 
 
-			}
+			/*}
 
 
 
@@ -147,7 +147,7 @@ public class audiotesting : MonoBehaviour {
 
 		pitch = freqN * (AudioSettings.outputSampleRate / 2) / numSamples;
 		//print(pitch);
-
+*/
 
 
 		AudioListener.GetOutputData(volumeSamples, 0);

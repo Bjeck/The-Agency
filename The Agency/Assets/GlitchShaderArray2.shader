@@ -35,7 +35,7 @@ SubShader
 		float filterRadius;
 		float flip_up, flip_down;
 		float displace;
-		float scale;
+		//float scale;
 
 		uniform int _PositionsLength = 0;
 		uniform float3 _Positions [99];

@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
 		if(Input.GetKey(KeyCode.Escape)){
 			Application.Quit();
 		}
-
+/*
 		if(Input.GetKey(KeyCode.R)){
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
@@ -51,11 +51,11 @@ public class GameManager : MonoBehaviour {
 //			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 			ChangeState(GameState.Game);
 		}
-		if(Input.GetKey(KeyCode.A)){
+//		if(Input.GetKey(KeyCode.A)){
 //			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-			ChangeState(GameState.Agency);
-		}
-			
+//			ChangeState(GameState.Agency);
+//		}
+			*/
 	}
 	
 

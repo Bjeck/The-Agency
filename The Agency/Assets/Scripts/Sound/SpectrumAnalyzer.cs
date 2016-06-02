@@ -15,6 +15,8 @@ public class SpectrumAnalyzer : MonoBehaviour {
 	public List<GameObject> boxes = new List<GameObject>();
 	public float scale = 1.5f;
 
+	public GlitchEffectArray gle;
+
 	void Start() {
 		batches.Add(new List<float>()); 
 		batches.Add(new List<float>()); 
@@ -102,6 +104,13 @@ public class SpectrumAnalyzer : MonoBehaviour {
 			texture.SetPixel(x, y, color);
 		}  
 		texture.Apply();
+
+
+		for (int i = 0; i < batches.Count; i++) {
+			gle.scaleFreqModifiers[i] = sum(batches[i].ToArray());
+				
+		}
+
 	}
 
 

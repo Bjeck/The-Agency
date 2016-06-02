@@ -10,6 +10,7 @@ public class AudioAnalyzer : MonoBehaviour {
 	float[] numberleft;
 	float[] numberright;
 	float[] volumeSamples;
+	float[] volumeSamples1;
 	float volumenumber;
 
 	public float pitch;
@@ -28,7 +29,7 @@ public class AudioAnalyzer : MonoBehaviour {
 		numberleft = new float[numSamples];
 		numberright = new float[numSamples];
 		volumeSamples = new float[numSamples];
-
+		volumeSamples1 = new float[numSamples];
 		volumenumber = 0;
 	}
 
@@ -87,6 +88,11 @@ public class AudioAnalyzer : MonoBehaviour {
 */
 
 		AudioListener.GetOutputData(volumeSamples, 0);
+		AudioListener.GetOutputData(volumeSamples1, 1);
+
+		for (int i = 0; i < volumeSamples[0]; i++) {
+			volumeSamples[i] = (volumeSamples[i]+volumeSamples1[i])/2;
+		}
 
 		volumenumber = 0f;
 		for(int j=0; j < numSamples; j++){

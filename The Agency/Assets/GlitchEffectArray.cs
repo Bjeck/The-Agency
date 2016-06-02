@@ -1,6 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
+public class GlitchPosition {
+	public Vector3 pos;
+	public float scale;
+
+	public GlitchPosition(Vector3 p, float s){
+		pos = p;
+		scale = s;
+	}
+}
+
 
 public class GlitchEffectArray : MonoBehaviour {
 	public Texture2D displacementMap;
@@ -33,11 +45,17 @@ public class GlitchEffectArray : MonoBehaviour {
 	Vector3 oPos = new Vector3();
 	Vector3 pos = new Vector3();
 
-	public List<Vector3> positions = new List<Vector3>();
-	public List<float> scales = new List<float>();
+	//public List<Vector3> positions = new List<Vector3>();
+	//public List<float> scales = new List<float>();
+	public Dictionary<GameObject,GlitchPosition> positions = new Dictionary<GameObject,GlitchPosition>();
+
+	//MAKE IT A CLASS OF EERYTHING.
+
 
 	Vector4 scaleRandomizer;
 	public float scaleRandomization = 20f;
+	public float[] scaleFreqModifiers = new float[10];
+	float xm,ym,zm,wm;
 
 	Material curMat;
 	public Shader shader;
@@ -62,8 +80,8 @@ public class GlitchEffectArray : MonoBehaviour {
 	}
 
 	void Update(){
-		//intensity = audioVolume*audioIntenScale;
-		//intensity = Mathf.Clamp(intensity,0,intenClamp);
+		intensity = audioVolume*audioIntenScale;
+		intensity = Mathf.Clamp(intensity,0,intenClamp);
 		scaleIntensity = intensity*scaleModifier;
 		scaleIntensity = Mathf.Clamp(scaleIntensity,scaleMin,scaleMax);
 
@@ -83,12 +101,24 @@ public class GlitchEffectArray : MonoBehaviour {
 
 		//print(positions.Count);
 
+		//if(scales.Count > 0){
+		//	print(scales.Values.ToList()[scales.Values.ToList().Count-1]);
+		//}
+
+
 		for (int i = 0; i < positions.Count; i++) {
-			material.SetVector("_Positions" + i.ToString(),positions[i]);
-			material.SetVector("_Scales" + i.ToString(),new Vector2(scaleIntensity,0));
+			material.SetVector("_Positions" + i.ToString(),positions.Values.ToList()[i].pos);
+			material.SetVector("_Scales" + i.ToString(),new Vector2(positions.Values.ToList()[i].scale,0));
 		}
-		scaleRandomizer = new Vector4(Random.Range(-scaleRandomization,scaleRandomization),Random.Range(-scaleRandomization,scaleRandomization),
-									  Random.Range(-scaleRandomization,scaleRandomization),Random.Range(-scaleRandomization,scaleRandomization));
+
+		xm = scaleFreqModifiers[0]+scaleFreqModifiers[1];
+		ym = scaleFreqModifiers[2]+scaleFreqModifiers[3];
+		zm = scaleFreqModifiers[4]+scaleFreqModifiers[5]+scaleFreqModifiers[6];
+		wm = scaleFreqModifiers[7]+scaleFreqModifiers[8]+scaleFreqModifiers[9];
+
+
+		scaleRandomizer = new Vector4(Random.Range(-xm,xm),Random.Range(-ym,ym),
+									  Random.Range(-zm,zm),Random.Range(-wm,wm));
 
 		//SCALE RANDOMIZATION AND GLITCHUP TIME IS WHAT I WILL ADJUST BASED ON FREQUENCY. GOT IT.
 
@@ -108,8 +138,8 @@ public class GlitchEffectArray : MonoBehaviour {
 			flickerTime = Random.value;
 		}
 
-		glitchup += Time.deltaTime;
-		glitchdown += Time.deltaTime;
+		glitchup += Time.deltaTime * scaleFreqModifiers[0]+scaleFreqModifiers[1]+scaleFreqModifiers[2]+scaleFreqModifiers[3]+scaleFreqModifiers[4];
+		glitchdown += Time.deltaTime * scaleFreqModifiers[5]+scaleFreqModifiers[6]+scaleFreqModifiers[7]+scaleFreqModifiers[8]+scaleFreqModifiers[9];
 
 		if(glitchup > glitchupTime){
 			if(Random.value < 0.1f * intensity)
@@ -132,8 +162,8 @@ public class GlitchEffectArray : MonoBehaviour {
 		}
 
 		if(Random.value < 0.05 * intensity){
-			material.SetFloat("displace", Random.value * intensity);
-			material.SetFloat("scale", 1-Random.value * intensity);
+//			material.SetFloat("displace", Random.value * intensity);
+		//	material.SetFloat("scale", 1-Random.value * intensity);
 			//			GlitchManager.instance.PlayGlitchSound(0);
 		}else
 			material.SetFloat("displace", 0);
@@ -144,14 +174,12 @@ public class GlitchEffectArray : MonoBehaviour {
 
 
 
-	public void AddPosition(Vector3 poss,AudioSource source){ //Does NOTHING with the Audiosource at the moment. Later, it will use it to adjust scale of the individual positions.
-		positions.Add(cam.WorldToScreenPoint(poss));
-		//scales.Add(source.volume);
+	public void AddPosition(Vector3 poss,GameObject sourceID){ //Does NOTHING with the Audiosource at the moment. Later, it will use it to adjust scale of the individual positions.
+		positions.Add(sourceID,new GlitchPosition(cam.WorldToScreenPoint(poss),0));
 	}
 
-	public void RemovePosition(Vector3 poss,AudioSource source){
-		positions.Remove(cam.WorldToScreenPoint(poss));
-		//scales.Remove(source.volume);
+	public void RemovePosition(GameObject sourceID){
+		positions.Remove(sourceID);
 		 
 	}
 
