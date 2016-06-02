@@ -83,7 +83,6 @@ public class RoomManager : MonoBehaviour {
 
 	public void PlaySoundInRoom(AudioEvent s){
 		roomAudio[s.sound].PlayAudio(soundIsPlayingPrefab);
-//		positionsSoundsArePlayingIn.Add(roomAudio[s.sound].gameObject.transform.position);
 	}
 
 

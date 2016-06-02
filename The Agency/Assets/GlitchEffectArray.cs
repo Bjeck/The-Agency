@@ -21,47 +21,22 @@ public class GlitchEffectArray : MonoBehaviour {
 	float glitchdownTime = 0.05f;
 	float flickerTime = 0.5f;
 	public float intensity;
-	public float scaleIntensity;
-	public float scaleModifier = 1f;
-	public float scaleMin;
-	public float scaleMax;
-
-//	[Range(0,2000)]
-	public Vector3 screenPoint;
-//	[Range(0,100)]
-	//public float PointScale = 0;
-	[Range(0,100)]
-	public float randomness = 0;
 
 	float timeToChangePos = 1f;
-
-	public Transform bla;
-
 
 	public float audioVolume;
 	public float audioIntenScale;
 	public float intenClamp;
 
-	Vector3 oPos = new Vector3();
-	Vector3 pos = new Vector3();
-
-	//public List<Vector3> positions = new List<Vector3>();
-	//public List<float> scales = new List<float>();
 	public Dictionary<GameObject,GlitchPosition> positions = new Dictionary<GameObject,GlitchPosition>();
 
-	//MAKE IT A CLASS OF EERYTHING.
-
-
 	Vector4 scaleRandomizer;
-	public float scaleRandomization = 20f;
 	public float[] scaleFreqModifiers = new float[10];
 	float xm,ym,zm,wm;
 
 	Material curMat;
 	public Shader shader;
-
 	public Camera cam;
-
 
 	public RoomManager roomMan;
 
@@ -79,17 +54,13 @@ public class GlitchEffectArray : MonoBehaviour {
 
 	}
 
+	void Start(){
+		material.SetTexture("_DisplacementTex",displacementMap);
+	}
+
 	void Update(){
 		intensity = audioVolume*audioIntenScale;
 		intensity = Mathf.Clamp(intensity,0,intenClamp);
-		scaleIntensity = intensity*scaleModifier;
-		scaleIntensity = Mathf.Clamp(scaleIntensity,scaleMin,scaleMax);
-
-		//if(Input.GetMouseButton(0)){
-			//oPos = Input.mousePosition;
-			oPos = cam.WorldToScreenPoint(bla.position);
-
-		//}
 	}
 
 
@@ -97,14 +68,6 @@ public class GlitchEffectArray : MonoBehaviour {
 	{
 		//pos = new Vector3(Random.Range(oPos.x-intensity,oPos.x+intensity),Random.Range(oPos.y-intensity,oPos.y+intensity),oPos.z);
 		material.SetInt("_PositionsLength",positions.Count);
-		material.SetFloat("_Randomness",randomness);
-
-		//print(positions.Count);
-
-		//if(scales.Count > 0){
-		//	print(scales.Values.ToList()[scales.Values.ToList().Count-1]);
-		//}
-
 
 		for (int i = 0; i < positions.Count; i++) {
 			material.SetVector("_Positions" + i.ToString(),positions.Values.ToList()[i].pos);
@@ -116,18 +79,11 @@ public class GlitchEffectArray : MonoBehaviour {
 		zm = scaleFreqModifiers[4]+scaleFreqModifiers[5]+scaleFreqModifiers[6];
 		wm = scaleFreqModifiers[7]+scaleFreqModifiers[8]+scaleFreqModifiers[9];
 
-
 		scaleRandomizer = new Vector4(Random.Range(-xm,xm),Random.Range(-ym,ym),
 									  Random.Range(-zm,zm),Random.Range(-wm,wm));
 
-		//SCALE RANDOMIZATION AND GLITCHUP TIME IS WHAT I WILL ADJUST BASED ON FREQUENCY. GOT IT.
-
 		material.SetVector("scaleRandomizer",scaleRandomizer);
-
-		material.SetFloat("scale", 1-Random.value * intensity);
-
 		material.SetFloat("_Intensity", intensity);
-		material.SetTexture("_DisplacementTex",displacementMap);
 
 
 		flicker += Time.deltaTime * intensity;
@@ -162,9 +118,7 @@ public class GlitchEffectArray : MonoBehaviour {
 		}
 
 		if(Random.value < 0.05 * intensity){
-//			material.SetFloat("displace", Random.value * intensity);
-		//	material.SetFloat("scale", 1-Random.value * intensity);
-			//			GlitchManager.instance.PlayGlitchSound(0);
+			material.SetFloat("displace", Random.value * intensity);
 		}else
 			material.SetFloat("displace", 0);
 		

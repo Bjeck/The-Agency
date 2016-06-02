@@ -9,7 +9,6 @@ public class Self_Destroy : MonoBehaviour {
 	public AudioSource source;
 	public int numSamples = 64;
 
-	// Private Varaibles
 	float[] volumeSamples;
 	float volumenumber;
 
@@ -28,16 +27,13 @@ public class Self_Destroy : MonoBehaviour {
 	
 	}
 	
-	// Update is called once per frame
+
 	void Update () {
 
 		source.GetOutputData(volumeSamples, 0);
 
 		volumenumber = 0f;
 		for(int j=0; j < numSamples; j++){
-			//	if(numberleft[j] != 0){
-			//	volumenumber += numberleft[j];
-			//	}
 			volumenumber += volumeSamples[j]*volumeSamples[j]; //sum squared samples.
 		}
 

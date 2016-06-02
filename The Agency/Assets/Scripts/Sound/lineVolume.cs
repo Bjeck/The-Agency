@@ -14,11 +14,9 @@ public class lineVolume : MonoBehaviour {
 	public float visualScale = 1.3f;
 	public float maxVal = 4f;
 
-	float testnr = 0;
-
+	public SpectrumAnalyzer specAn;
 	public Image img;
 
-	// Use this for initialization
 	void Start () {
 
 		line = GetComponent<LineRenderer>();
@@ -27,8 +25,7 @@ public class lineVolume : MonoBehaviour {
 			volumeList.Add(0f);
 		}
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 
 		for(int i = 0; i < lineLength;i++){
@@ -47,8 +44,6 @@ public class lineVolume : MonoBehaviour {
 
 		volumeList.Add(f);
 		volumeList.RemoveAt(0);
-//		print("ADDED "+f+". NOW AT: "+volumeList.Count);
-
 	}
 
 

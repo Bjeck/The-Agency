@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 878050d2617199540b6b73bd8c786c7f
-timeCreated: 1463315431
+guid: e80dd49d0f2af034c9d1a94f28ace49f
+timeCreated: 1464788026
 licenseType: Free
 ShaderImporter:
   defaultTextures:
   - _MainTex: {instanceID: 0}
-  - _DisplacementTex: {fileID: 2800000, guid: 50390915d3357ad4ab815997b7633a3e, type: 3}
+  - _DisplacementTex: {fileID: 2800000, guid: 199d7ce5605c35f49ab907c8e1eddfd2, type: 3}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
