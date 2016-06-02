@@ -221,7 +221,7 @@ public class Story : MonoBehaviour {
 
 	void SetupGameEvents(){
 
-		gameEvents.Add(new AgencyEvent(GameState.Evaluation,185));
+	//	gameEvents.Add(new AgencyEvent(GameState.Evaluation,185));
 	//THIS IS HOW I DO CUTS. YAY!
 
 	}

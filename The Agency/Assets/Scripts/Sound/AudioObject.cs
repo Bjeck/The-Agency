@@ -22,7 +22,7 @@ public class AudioObject : MonoBehaviour {
 		source.Play();
 
 		GameObject g = (GameObject)Instantiate(prefabToSpawn,transform.position+(Vector3.up*2),Quaternion.identity);
-		g.GetComponent<Self_Destroy>().timeTilDestroy = audios[r].length+1f;
+		g.GetComponent<Self_Destroy>().timeTilDestroy = audios[r].length;
 
 	}
 

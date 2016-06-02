@@ -62,8 +62,8 @@ public class GlitchEffectArray : MonoBehaviour {
 	}
 
 	void Update(){
-		intensity = audioVolume*audioIntenScale;
-		intensity = Mathf.Clamp(intensity,0,intenClamp);
+		//intensity = audioVolume*audioIntenScale;
+		//intensity = Mathf.Clamp(intensity,0,intenClamp);
 		scaleIntensity = intensity*scaleModifier;
 		scaleIntensity = Mathf.Clamp(scaleIntensity,scaleMin,scaleMax);
 
@@ -77,42 +77,11 @@ public class GlitchEffectArray : MonoBehaviour {
 
 	void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
-		pos = new Vector3(Random.Range(oPos.x-intensity,oPos.x+intensity),Random.Range(oPos.y-intensity,oPos.y+intensity),oPos.z);
-
-		//screenPoint = pos;
-
-		//screenHeightHigh = pos.y + ((Random.Range(5f,20f))*scaleIntensity);
-		//screenHeightLow = pos.y - ((Random.Range(5f,20f))*scaleIntensity);
-		//screenWidthLeft = pos.x - ((Random.Range(5f,20f))*scaleIntensity);
-		//screenWidthRight = pos.x + ((Random.Range(5f,20f))*scaleIntensity);
-
-	//	PointScale = intensity*25f;
-
-
-	//	if(timeToChangePos > 0){
-	//		timeToChangePos -= Time.deltaTime;
-	//	}
-	//	else{
-	//		
-			//screenHeightHigh = Random.Range(0,Camera.main.pixelHeight);
-			//screenHeightLow = Random.Range(0,screenHeightHigh);
-			//screenWidthRight = Random.Range(0,Camera.main.pixelWidth);
-			//screenWidthLeft = Random.Range(0,screenWidthRight);
-
-		//print(positions.Count);
-
-
-
-	//	scales[0]=PointScale;
-	//	scales[1]=PointScale;
-
-		//material.SetVector("_ScreenPoint",screenPoint);
-	//	material.SetFloat("_PointScale",PointScale);
+		//pos = new Vector3(Random.Range(oPos.x-intensity,oPos.x+intensity),Random.Range(oPos.y-intensity,oPos.y+intensity),oPos.z);
 		material.SetInt("_PositionsLength",positions.Count);
 		material.SetFloat("_Randomness",randomness);
 
-	//	material.SetVector("_Positions" + 0,screenPoint);
-	//	material.SetVector("_Positions" + 1,screenPoint+(Vector3.up*200f));
+		//print(positions.Count);
 
 		for (int i = 0; i < positions.Count; i++) {
 			material.SetVector("_Positions" + i.ToString(),positions[i]);
@@ -120,25 +89,16 @@ public class GlitchEffectArray : MonoBehaviour {
 		}
 		scaleRandomizer = new Vector4(Random.Range(-scaleRandomization,scaleRandomization),Random.Range(-scaleRandomization,scaleRandomization),
 									  Random.Range(-scaleRandomization,scaleRandomization),Random.Range(-scaleRandomization,scaleRandomization));
+
+		//SCALE RANDOMIZATION AND GLITCHUP TIME IS WHAT I WILL ADJUST BASED ON FREQUENCY. GOT IT.
+
 		material.SetVector("scaleRandomizer",scaleRandomizer);
 
 		material.SetFloat("scale", 1-Random.value * intensity);
 
-
-		//	material.SetFloat("_ScreenHeightHigh",screenHeightHigh);
-		//	material.SetFloat("_ScreenWidthLeft",screenWidthLeft);
-		//	material.SetFloat("_ScreenWidthRight",screenWidthRight);
-
-	//		timeToChangePos = 1f;
-	//	}
-
-
 		material.SetFloat("_Intensity", intensity);
 		material.SetTexture("_DisplacementTex",displacementMap);
 
-		//material.SetFloat("filterRadius", Random.Range(-3f,3f) * intensity); //BLINKING
-		//material.SetFloat("flip_up", glitchup);
-		//material.SetFloat("flip_down", glitchdown);
 
 		flicker += Time.deltaTime * intensity;
 
@@ -148,11 +108,8 @@ public class GlitchEffectArray : MonoBehaviour {
 			flickerTime = Random.value;
 		}
 
-
-		glitchup += Time.deltaTime * intensity;
-		glitchdown += Time.deltaTime * intensity;
-
-
+		glitchup += Time.deltaTime;
+		glitchdown += Time.deltaTime;
 
 		if(glitchup > glitchupTime){
 			if(Random.value < 0.1f * intensity)
@@ -164,8 +121,6 @@ public class GlitchEffectArray : MonoBehaviour {
 			glitchupTime = Random.value/10f;
 		}
 
-
-
 		if(glitchdown > glitchdownTime){
 			if(Random.value < 0.1f * intensity)
 				material.SetFloat("flip_down", 1-Random.Range(0, 1f) * intensity);
@@ -175,32 +130,29 @@ public class GlitchEffectArray : MonoBehaviour {
 			glitchdown = 0;
 			glitchdownTime = Random.value/10f;
 		}
-		
+
 		if(Random.value < 0.05 * intensity){
 			material.SetFloat("displace", Random.value * intensity);
 			material.SetFloat("scale", 1-Random.value * intensity);
 			//			GlitchManager.instance.PlayGlitchSound(0);
 		}else
 			material.SetFloat("displace", 0);
-
-
-
-
-
-
-
+		
 		Graphics.Blit(source,destination,material);
 
 	}
 
 
 
-	public void AddPosition(Vector3 poss){
+	public void AddPosition(Vector3 poss,AudioSource source){ //Does NOTHING with the Audiosource at the moment. Later, it will use it to adjust scale of the individual positions.
 		positions.Add(cam.WorldToScreenPoint(poss));
+		//scales.Add(source.volume);
 	}
 
-	public void RemovePosition(Vector3 poss){
+	public void RemovePosition(Vector3 poss,AudioSource source){
 		positions.Remove(cam.WorldToScreenPoint(poss));
+		//scales.Remove(source.volume);
+		 
 	}
 
 }

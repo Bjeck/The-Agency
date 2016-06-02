@@ -41,20 +41,7 @@ SubShader
 		uniform float3 _Positions [99];
 		uniform float2 _Scales [99];
 		uniform float4 scaleRandomizer;
-
-	//	struct appdata
-	//	{
-	//		float4 vertex : POSITION;
-	//		float2 uv : TEXCOORD0;
-	//	};
-
-	//	struct v2f
-	//	{
-	//		float2 uv : TEXCOORD0;
-	//		float4 vertex : SV_POSITION;
-	//	};
-	
-		
+			
 		struct v2f
 		{
 			float4 pos : POSITION;
@@ -94,7 +81,6 @@ SubShader
 			
 			
 			
-			//float2 worldpos = 0.5*(i.screenPos.xy+1.0) * _ScreenParams.xy;
 			float2 worldpos = (i.screenPos) * _ScreenParams.xy;
 
 			for(int j = 0; j<_PositionsLength;j++){
@@ -104,10 +90,10 @@ SubShader
 
 				if(worldpos.y > _Positions[j].y - (_Scales[j].x+scaleRandomizer.x) && worldpos.y < _Positions[j].y + (_Scales[j].x+scaleRandomizer.y) && 
 				   worldpos.x < _Positions[j].x + (_Scales[j].x+scaleRandomizer.z) && worldpos.x > _Positions[j].x - (_Scales[j].x+scaleRandomizer.w)){
-			//  if(distance(_Positions[j].xy,worldpos) > _Randomness){
-		 	//		THIS DOESN'T WORK BECAUSE SHADERS ARE FUN :(
 
-			//	if(worldpos.y > _Positions[j].y - _PointScale && worldpos.y < _Positions[j].y + _PointScale && worldpos.x < _Positions[j].x + _PointScale && worldpos.x > _Positions[j].x - _PointScale){
+			    //if(distance(_Positions[j].xy,worldpos) < _Randomness){
+		 	//		Circle area instead -- more uniform.
+
 					half4 normal = tex2D (_DisplacementTex, i.uv.xy * _Scales[j].x);
 
 					if(i.uv.y < flip_up)
@@ -139,11 +125,6 @@ SubShader
 				else{
 					color = tex2D(_MainTex, i.uv.xy);
 				}
-
-
-
-
-
 			}
 
 			return color;				
