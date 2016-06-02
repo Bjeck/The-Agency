@@ -5,10 +5,6 @@ Properties
 	_MainTex ("Texture", 2D) = "white" {}
 	_DisplacementTex ("Displacement", 2D) = "bump" {}
 	_Intensity ("Intensity", Range(0.1,1.0)) = 1
-//	_ScreenHeight ("ScreenHeightLow", Range(0,2000)) = 0
-//	_ScreenWidth ("ScreenHeightHigh", Range(0,2000)) = 0
-//	_ScreenWidth ("ScreenWidthLeft", Range(0,2000)) = 0
-//	_ScreenWidth ("ScreenWidthRight", Range(0,2000)) = 0
 	_ScreenPoint ("ScreenPoint", Vector) = (0,0,0,0)
 	_PointScale ("PointScale",Range(0,100)) = 0
 	_Randomness ("Randomness", Range(0,100)) = 1
@@ -42,8 +38,9 @@ SubShader
 		float scale;
 
 		uniform int _PositionsLength = 0;
-		uniform float3 _Positions [100];
-		uniform float2 _Scales [100];
+		uniform float3 _Positions [99];
+		uniform float2 _Scales [99];
+		uniform float4 scaleRandomizer;
 
 	//	struct appdata
 	//	{
@@ -105,13 +102,14 @@ SubShader
 //				_Positions[j].y *= (rand(float3(int(i.pos.y-0.001f),int(0),int(i.pos.y+0.001f)))) * _Randomness;
 //				_Positions[j].x *= (rand(float3(int(i.pos.x-0.001f),int(0),int(i.pos.x+0.001f)))) * _Randomness;
 
-				if(worldpos.y > _Positions[j].y - _Scales[j].x && worldpos.y < _Positions[j].y + _Scales[j].x && worldpos.x < _Positions[j].x + _Scales[j].x && worldpos.x > _Positions[j].x - _Scales[j].x){
-			 //  if(distance(_Positions[j].xy,worldpos) > _Randomness){
+				if(worldpos.y > _Positions[j].y - (_Scales[j].x+scaleRandomizer.x) && worldpos.y < _Positions[j].y + (_Scales[j].x+scaleRandomizer.y) && 
+				   worldpos.x < _Positions[j].x + (_Scales[j].x+scaleRandomizer.z) && worldpos.x > _Positions[j].x - (_Scales[j].x+scaleRandomizer.w)){
+			//  if(distance(_Positions[j].xy,worldpos) > _Randomness){
 		 	//		THIS DOESN'T WORK BECAUSE SHADERS ARE FUN :(
 
 			//	if(worldpos.y > _Positions[j].y - _PointScale && worldpos.y < _Positions[j].y + _PointScale && worldpos.x < _Positions[j].x + _PointScale && worldpos.x > _Positions[j].x - _PointScale){
-					half4 normal = tex2D (_DisplacementTex, i.uv.xy);
-					
+					half4 normal = tex2D (_DisplacementTex, i.uv.xy * _Scales[j].x);
+
 					if(i.uv.y < flip_up)
 						i.uv.y = 1 - (i.uv.y + flip_up);
 					
@@ -119,7 +117,7 @@ SubShader
 						i.uv.y = 1 - (i.uv.y - flip_down);
 						
 					i.uv.xy += (normal.xy - 0.5) * displace * _Intensity;
-				
+
 					if(_Intensity > 1){		
 						half4 redcolor = tex2D(_MainTex,  i.uv.xy + 0.01 * filterRadius * _Intensity);	
 						half4 greencolor = tex2D(_MainTex,  i.uv.xy + 0.01 * filterRadius * _Intensity);
@@ -143,10 +141,13 @@ SubShader
 				}
 
 
+
+
+
 			}
 
-			return color;
-		}
+			return color;				
+					}
 
 
 

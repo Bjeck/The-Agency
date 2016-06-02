@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-public class fftexample : MonoBehaviour {
+public class SpectrumAnalyzer : MonoBehaviour {
 
 	public int fftSize = 1024;
 	float[] spectrum;
@@ -53,7 +53,7 @@ public class fftexample : MonoBehaviour {
 		// Read the FFT
 		AudioListener.GetSpectrumData(spectrum, 0,FFTWindow.BlackmanHarris);
 
-		print("read "+spectrum.Length);
+//		print("read "+spectrum.Length);
 
 		//float[] batches = new float[5];
 

@@ -47,7 +47,7 @@ public class lineVolume : MonoBehaviour {
 
 		volumeList.Add(f);
 		volumeList.RemoveAt(0);
-		print("ADDED "+f+". NOW AT: "+volumeList.Count);
+//		print("ADDED "+f+". NOW AT: "+volumeList.Count);
 
 	}
 

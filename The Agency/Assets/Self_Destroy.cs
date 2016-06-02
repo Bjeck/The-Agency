@@ -5,8 +5,13 @@ public class Self_Destroy : MonoBehaviour {
 
 	public float timeTilDestroy = 0;
 
+	public GlitchEffectArray gle;
+
 	// Use this for initialization
 	void Start () {
+
+		gle = GameObject.FindGameObjectWithTag("GLITCH").GetComponent<GlitchEffectArray>();
+		gle.AddPosition(transform.position);
 	
 	}
 	
@@ -16,6 +21,8 @@ public class Self_Destroy : MonoBehaviour {
 		timeTilDestroy -= Time.deltaTime;
 
 		if(timeTilDestroy <= 0){
+			print("DESTROY");
+			gle.RemovePosition(transform.position);
 			Destroy(gameObject);
 		}
 	

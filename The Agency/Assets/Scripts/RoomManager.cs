@@ -20,6 +20,8 @@ public class RoomManager : MonoBehaviour {
 	public List<GameObject> objectLists = new List<GameObject>();
 	public Dictionary<string, AudioObject> roomAudio = new Dictionary<string,AudioObject>();
 
+	public List<Vector3> positionsSoundsArePlayingIn = new List<Vector3>();
+
 	public GameObject soundIsPlayingPrefab;
 
 	// Use this for initialization
@@ -81,7 +83,7 @@ public class RoomManager : MonoBehaviour {
 
 	public void PlaySoundInRoom(AudioEvent s){
 		roomAudio[s.sound].PlayAudio(soundIsPlayingPrefab);
-
+//		positionsSoundsArePlayingIn.Add(roomAudio[s.sound].gameObject.transform.position);
 	}
 
 

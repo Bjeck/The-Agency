@@ -36,13 +36,16 @@ public class GlitchEffectArray : MonoBehaviour {
 	public List<Vector3> positions = new List<Vector3>();
 	public List<float> scales = new List<float>();
 
-
-
+	Vector4 scaleRandomizer;
+	public float scaleRandomization = 20f;
 
 	Material curMat;
 	public Shader shader;
 
 	public Camera cam;
+
+
+	public RoomManager roomMan;
 
 	Material material
 	{
@@ -96,7 +99,10 @@ public class GlitchEffectArray : MonoBehaviour {
 			//screenWidthRight = Random.Range(0,Camera.main.pixelWidth);
 			//screenWidthLeft = Random.Range(0,screenWidthRight);
 
-		positions[0] = pos;
+		//print(positions.Count);
+
+
+
 	//	scales[0]=PointScale;
 	//	scales[1]=PointScale;
 
@@ -108,10 +114,15 @@ public class GlitchEffectArray : MonoBehaviour {
 	//	material.SetVector("_Positions" + 0,screenPoint);
 	//	material.SetVector("_Positions" + 1,screenPoint+(Vector3.up*200f));
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < positions.Count; i++) {
 			material.SetVector("_Positions" + i.ToString(),positions[i]);
-			material.SetVector("_Scales" + i.ToString(),new Vector2(scaleIntensity,0)   );
+			material.SetVector("_Scales" + i.ToString(),new Vector2(scaleIntensity,0));
 		}
+		scaleRandomizer = new Vector4(Random.Range(-scaleRandomization,scaleRandomization),Random.Range(-scaleRandomization,scaleRandomization),
+									  Random.Range(-scaleRandomization,scaleRandomization),Random.Range(-scaleRandomization,scaleRandomization));
+		material.SetVector("scaleRandomizer",scaleRandomizer);
+
+		material.SetFloat("scale", 1-Random.value * intensity);
 
 
 		//	material.SetFloat("_ScreenHeightHigh",screenHeightHigh);
@@ -181,4 +192,15 @@ public class GlitchEffectArray : MonoBehaviour {
 		Graphics.Blit(source,destination,material);
 
 	}
+
+
+
+	public void AddPosition(Vector3 poss){
+		positions.Add(cam.WorldToScreenPoint(poss));
+	}
+
+	public void RemovePosition(Vector3 poss){
+		positions.Remove(cam.WorldToScreenPoint(poss));
+	}
+
 }
