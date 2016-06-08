@@ -128,13 +128,6 @@ public class Story : MonoBehaviour {
 
 
 			tick++;
-
-			//CREATE SYSTEM FOR STATE CHANGING
-
-			//if(tick == 6){
-			//	StartCoroutine(WaitForText());
-			//	break;
-			//}
 		}
 	}
 

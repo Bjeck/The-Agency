@@ -7,6 +7,10 @@ using UnityEngine.Audio;
 
 public class RoomManager : MonoBehaviour {
 
+	/// <summary>
+	/// This script does mostly unrelated things to the MMP Project, except the "PlaySoundInRoom" function.
+	/// </summary>
+
 	public List<Transform> micPoss = new List<Transform>();
 	public Dictionary<string,Transform> rooms = new Dictionary<string, Transform>();
 	public List<Button> buttons = new List<Button>();
@@ -81,7 +85,7 @@ public class RoomManager : MonoBehaviour {
 
 
 
-	public void PlaySoundInRoom(AudioEvent s){
+	public void PlaySoundInRoom(AudioEvent s){		//Plays the sound in the room (triggered by the game), which activates the AudioObject script.
 		roomAudio[s.sound].PlayAudio(soundIsPlayingPrefab);
 	}
 

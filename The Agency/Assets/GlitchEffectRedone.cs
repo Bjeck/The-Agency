@@ -52,9 +52,9 @@ public class GlitchEffectRedone : MonoBehaviour {
 	}
 
 	void Update(){
-		intensity = audioVolume*audioIntenScale;
-		intensity = Mathf.Clamp(intensity,0,intenClamp);
-		scaleIntensity = Mathf.Clamp(intensity,1,intenClamp);
+		//intensity = audioVolume*audioIntenScale;
+		//intensity = Mathf.Clamp(intensity,0,intenClamp);
+		//scaleIntensity = Mathf.Clamp(intensity,1,intenClamp);
 
 		//if(Input.GetMouseButton(0)){
 			//oPos = Input.mousePosition;

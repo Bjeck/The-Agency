@@ -169,10 +169,10 @@ public class audiotesting : MonoBehaviour {
 		//volumenumber = (1/Mathf.Log(Mathf.Abs(volumenumber)))*volumeScale;
 		transform.localScale = new Vector3(transform.localScale.x,(volumenumber)*volumeScale,1); 
 	//	print(volumenumber*volumeScale);
-		gle.audioVolume = volumenumber*volumeScale;
+	//	gle.audioVolume = volumenumber*volumeScale;
 		//transform.localScale = Vector3.Lerp(transform.localScale,new Vector3(transform.localScale.x,volumenumber*volumeScale,1),Time.deltaTime);
 
-		lineVol.AddNewVolume(volumenumber*volumeScale);
+	//	lineVol.AddNewVolume(volumenumber*volumeScale);
 
 
 	}
