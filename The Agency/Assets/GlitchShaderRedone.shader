@@ -108,7 +108,7 @@ SubShader
 				
 				
 			
-				if(_Intensity > 1){		
+			//	if(_Intensity > 1){		
 					half4 redcolor = tex2D(_MainTex,  i.uv.xy + 0.01 * filterRadius * _Intensity);	
 					half4 greencolor = tex2D(_MainTex,  i.uv.xy + 0.01 * filterRadius * _Intensity);
 				
@@ -120,10 +120,10 @@ SubShader
 						color.g = redcolor.b * 1.2;
 						color.r = greencolor.g * 1.2;
 					}
-				}
-				else{
-					color = tex2D(_MainTex, i.uv.xy);
-				}
+			//	}
+			//	else{
+			//		color = tex2D(_MainTex, i.uv.xy);
+			//	}
 				
 
 			}
